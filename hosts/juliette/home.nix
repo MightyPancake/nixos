@@ -67,10 +67,14 @@
   #
   #  /etc/profiles/per-user/root/etc/profile.d/hm-session-vars.sh
   #
-  home.sessionVariables = {
-    EDITOR = "hx";
-  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  home.sessionVariables = {
+    EDITOR = "hx";
+    GCM_CREDENTIAL_STORE = "cache";
+  };
+
+  programs.bash.enable = true;
 }

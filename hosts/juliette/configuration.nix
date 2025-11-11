@@ -19,7 +19,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "juliette"; # Define your hostname.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -98,6 +98,11 @@
     ];
   };
 
+  environment.variables = {
+    EDITOR = "hx";
+    GCM_CREDENTIAL_STORE = "cache";
+  };
+
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users = {
@@ -122,6 +127,10 @@
     onedrive
     gcc
     framac
+    bitwarden-cli
+    git-credential-manager
+    tree
+    cbonsai
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
