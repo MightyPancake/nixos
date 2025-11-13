@@ -1,34 +1,28 @@
-host ?= "default"
+# Default variables
+host ?= juliette
+desktop ?= plasma
+flake_path ?= $(CURDIR)
 
-.PHONY = switch test clean
+.PHONY: switch build test clean dirty
 
 default: switch
 
-switch: 
-	nixos-rebuild switch --flake ./#$(host)
+switch:
+	nixos-rebuild switch --flake path:$(flake_path)#$(host)-$(desktop)
+
+build:
+	nixos-rebuild build --flake path:$(flake_path)#$(host)-$(desktop)
 
 test:
-	echo "Not yet implemented, sorry!"
+	nixos-rebuild test --flake path:$(flake_path)#$(host)-$(desktop)
 
-gh:
-	
-	git config --global credential.helper manager
-	echo -e "Starting the auth"
-	git-credential-manager github login
-	echo -e "List of github logins:"
-	git-credential-manager github list
+dirty:
+	nixos-rebuild switch --flake path:$(flake_path)#$(host)-$(desktop) --show-trace
 
-# Shamelessly copied from https://github.com/Free-Rat/config_flake
+desktop-restart:
+	systemctl restart display-manager.service
+
 clean:
-	# sudo nixos-rebuild switch --flake /home/freerat/config_flake
-	echo "collecting garbage"
-	sudo nix-collect-garbage
 	sudo nix-collect-garbage -d
-	nix-collect-garbage
 	nix-collect-garbage -d
-	echo "store optimising"
-	nix-store --optimise
-	echo "results"
-	du -sh /nix/store
-	# nix-store --gc --print-roots | egrep -v "^(/nix/var|/run/\w+-system|\{memory|/proc)"
-
+	sudo nix-store --optimise
