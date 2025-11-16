@@ -1,54 +1,56 @@
-{ config, pkgs, inputs, ... }:
+# { config, pkgs, inputs, ... }:
 
-{
-  # Enable the Hyprland Wayland compositor at the user level
-  wayland.windowManager.hyprland = {
-    enable = true;
+# {
+#   # Enable the Hyprland Wayland compositor at the user level
+#   wayland.windowManager.hyprland = {
+#     enable = true;
 
-    # Use the Hyprland flake package
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+#     # Use the Hyprland flake package
+#     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
 
-    # Enable XWayland support for apps that need X11
-    xwayland.enable = true;
+#     # Enable XWayland support for apps that need X11
+#     xwayland.enable = true;
 
-    # Optional: start hyprland-session.target automatically
-    systemd.enable = true;
+#     # Optional: start hyprland-session.target automatically
+#     systemd.enable = true;
 
-    # Keybindings and decoration settings
-    settings = {
-      decoration = {
-        shadow_offset = "0 5";
-        "col.shadow" = "rgba(00000099)";
-      };
+#     # Keybindings and decoration settings
+#     settings = {
+#       # decoration = {
+#       #   shadow_offset = "0 5";
+#       #   "col.shadow" = "rgba(00000099)";
+#       # };
 
-      # Mod key (SUPER = Windows/Command key)
-      "$mod" = "SUPER";
+#       # Mod key (SUPER = Windows/Command key)
+#       "$mod" = "SUPER";
 
-      # Mouse bindings
-      bindm = [
-        "$mod, mouse:272, movewindow"      # Move window with left-click
-        "$mod, mouse:273, resizewindow"    # Resize window with right-click
-        "$mod ALT, mouse:272, resizewindow" # Alt + left-click resize
-      ];
-    };
+#       # Mouse bindings
+#       bindm = [
+#         "$mod, mouse:272, movewindow"      # Move window with left-click
+#         "$mod, mouse:273, resizewindow"    # Resize window with right-click
+#         "$mod ALT, mouse:272, resizewindow" # Alt + left-click resize
 
-    # Optional: load Hyprland plugins
-    plugins = [
-      # Example plugin: inputs.some_hypr_plugin.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ];
-  };
+#         "$mod, Return, spawn kitty"
+#       ];
+#     };
 
-  # Optional: write a full Hyprland conf manually
-  # home.file."~/.config/hypr/hyprland.conf".text = ''
-  #   decoration {
-  #     shadow_offset = 0 5
-  #     col.shadow = rgba(00000099)
-  #   }
+#     # Optional: load Hyprland plugins
+#     plugins = [
+#       # Example plugin: inputs.some_hypr_plugin.packages.${pkgs.stdenv.hostPlatform.system}.default
+#     ];
+#   };
 
-  #   $mod = SUPER
+#   # Optional: write a full Hyprland conf manually
+#   # home.file."~/.config/hypr/hyprland.conf".text = ''
+#   #   decoration {
+#   #     shadow_offset = 0 5
+#   #     col.shadow = rgba(00000099)
+#   #   }
 
-  #   bindm = $mod, mouse:272, movewindow
-  #   bindm = $mod, mouse:273, resizewindow
-  #   bindm = $mod ALT, mouse:272, resizewindow
-  # '';
-}
+#   #   $mod = SUPER
+
+#   #   bindm = $mod, mouse:272, movewindow
+#   #   bindm = $mod, mouse:273, resizewindow
+#   #   bindm = $mod ALT, mouse:272, resizewindow
+#   # '';
+# }

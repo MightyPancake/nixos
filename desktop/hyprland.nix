@@ -5,7 +5,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.hyprland}/bin/hyprland";
+        command = "${pkgs.hyprland}/bin/hyprland -c /home/mightypancake/nixos/home/hyprland.conf";
         # command = "${pkgs.hyprland}/bin/hyprland -c /home/freerat/config_flake/modules/hyprland/hyprland.conf";
         user = "mightypancake";
       };
@@ -52,5 +52,5 @@
   ];
 
   # Import home for config
-  home-manager.users."mightypancake" = import "${froot}/home/hyprland.nix";
+  # home-manager.users."mightypancake" = import "${froot}/home/hyprland.nix";
 }

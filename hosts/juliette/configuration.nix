@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, froot, ... }:
 
 {
   imports = [
@@ -83,7 +83,7 @@
 
   # Home Manager setup
   home-manager = {
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = { inherit inputs froot; };
     users = {
       "mightypancake" = import ./home.nix;
     };
@@ -97,18 +97,42 @@
 
   # System packages
   environment.systemPackages = with pkgs; [
-    gnumake
+    # dev - editors
     vim
     helix
+
+    # dev - languages
+    gcc # C
+    go
+    lua
+
+    # dev - tools
+    gnumake
     wget
-    git
-    onedrive
-    gcc
-    framac
-    bitwarden-cli
     git-credential-manager
+    git
+    framac
+
+    # files
+    onedrive
+    discord
+
+    # misc
     tree
     cbonsai
+
+    # comms
+    discord
+    signal-desktop-bin
+
+    # youtube
+    youtube-tui
+    mpv
+
+    # Useful in my hyprland set up
+    wtype
+    hyprpaper
+    ashell
   ];
 
   # System state version

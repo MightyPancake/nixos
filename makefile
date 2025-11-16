@@ -1,6 +1,6 @@
 # Default variables
 host ?= juliette
-desktop ?= plasma
+desktop ?= hyprland
 flake_path ?= $(CURDIR)
 
 .PHONY: switch build test clean dirty
@@ -21,6 +21,9 @@ dirty:
 
 desktop-restart:
 	systemctl restart display-manager.service
+
+onedrive:
+	make onedrive auth
 
 clean:
 	sudo nix-collect-garbage -d
