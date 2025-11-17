@@ -4,6 +4,7 @@
   imports = [
     # Configured programs go here
     ../../programs/rofi.nix
+    # kitty should go here but im lazy
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -75,6 +76,22 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+ 
+  programs.kitty = {
+    enable = true;
+    settings ={
+      wayland_disable = true;
+      # blur
+      background_opacity = 0.85;
+      background_blur = 9;
+
+      confirm_os_window_close = 0;
+      
+      font_size = 15.0;
+      # theme = "OneDark";
+    };
+  };
+ 
   home.sessionVariables = {
     EDITOR = "hx";
     GCM_CREDENTIAL_STORE = "cache";

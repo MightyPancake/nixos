@@ -1,0 +1,50 @@
+outputs = "Active"
+
+[modules]
+left = [ "Workspaces" ]
+center = [ "Clock", "MediaPlayer" ]
+right = [ [ "Tray", "SystemInfo", "Settings" ] ]
+
+[workspaces]
+visibility_mode = "MonitorSpecific"
+
+[system_info]
+# indicators = [ { Disk = "/home"}, "DownloadSpeed", "UploadSpeed", "Cpu"]
+indicators = [ "Cpu", "Temperature"]
+
+[settings]
+lock_cmd = "hyprlock -c /home/mightypancake/nixos/home/hyprlock/hyprlock.conf"
+remove_airplane_btn = true
+remove_idle_btn = true
+
+# [appearance]
+# font_name = "JetBrainsMonoNLNerdFontMono"
+# style = "Gradient"
+# opacity = 0.3
+
+# [appearance.primary_color]
+# base = "#3dbabe"
+
+[appearance.menu]
+opacity = 0.95
+
+# Tokyo Night
+[appearance]
+
+primary_color = "#7aa2f7"
+success_color = "#9ece6a"
+text_color = "#a9b1d6"
+
+workspace_colors = [ "#7aa2f7", "#9ece6a" ]
+
+[appearance.danger_color]
+base = "#f7768e"
+weak = "#e0af68"
+
+[appearance.background_color]
+base = "#1a1b26"
+weak = "#24273a"
+strong = "#414868"
+
+[appearance.secondary_color]
+base = "#0c0d14"

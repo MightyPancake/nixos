@@ -11,7 +11,8 @@ in
     enable = true;
 
     # This makes Home Manager symlink the config.rasi into ~/.config/rofi/config.rasi
-    theme = rofiConfig;
+    # theme = rofiConfig;
+    theme = "Arc-Dark";
 
     # Optional: specify a terminal for rofi -run (delete if you don't need this)
     # terminal = "alacritty";

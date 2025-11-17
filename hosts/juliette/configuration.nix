@@ -21,6 +21,38 @@
     ];
   };
 
+  # Bluetooth stuff
+  hardware.bluetooth = {
+    enable = true;
+    # powerOnBoot = true;
+    settings = {
+      General = {
+        Enable = "Source,Sink,Media,Socket";
+        # Shows battery charge of connected devices on supported
+        # Bluetooth adapters. Defaults to 'false'.
+        Experimental = true;
+        # When enabled other devices can connect faster to us, however
+        # the tradeoff is increased power consumption. Defaults to
+        # 'false'.
+        FastConnectable = true;
+      };
+      Policy = {
+        # Enable all controllers when they are found. This includes
+        # adapters present on start as well as adapters that are plugged
+        # in later on. Defaults to 'true'.
+        AutoEnable = true;
+      };
+    };
+  };
+
+  # hardware.pulseaudio = {
+  #   enable = true;
+  #   package = pkgs.pulseaudioFull;
+  # };
+
+  # bluetooth manager
+  services.blueman.enable = true;
+
   # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -53,6 +85,7 @@
   # Console keymap
   console.keyMap = "pl2";
 
+  services.upower.enable = true;
   # Printing
   services.printing.enable = true;
 
@@ -78,7 +111,6 @@
   # Environment variables
   environment.variables = {
     EDITOR = "hx";
-    GCM_CREDENTIAL_STORE = "cache";
   };
 
   # Home Manager setup
@@ -95,6 +127,11 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+  ];
+
+
   # System packages
   environment.systemPackages = with pkgs; [
     # dev - editors
@@ -107,6 +144,7 @@
     lua
 
     # dev - tools
+    kitty
     gnumake
     wget
     git-credential-manager
@@ -115,25 +153,60 @@
 
     # files
     onedrive
-    discord
+    kdePackages.dolphin
 
     # misc
     tree
     cbonsai
+    woomer
+    wlogout
+    xcursor-pro
+    bibata-cursors
+    fastfetch
+    cowsay
+    kittysay
+    bottom
+    btop
+
+    # games
+    solitaire-tui
+
+    # components
+    networkmanager
+    bluetuith
+    upower
 
     # comms
     discord
     signal-desktop-bin
 
-    # youtube
+    # media
+    spotify-player
+    spotifyd
     youtube-tui
     mpv
+    cava
+
+    # fonts
+    nerd-fonts.monaspace
 
     # Useful in my hyprland set up
     wtype
     hyprpaper
     ashell
+    # hyprpanel
+    hyprlock
+    # (inputs.quickshell.packages.${pkgs.system}.default)
+
+    mesa
   ];
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+  };
 
   # System state version
   system.stateVersion = "25.05";

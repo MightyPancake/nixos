@@ -46,11 +46,6 @@
   # services.displayManager.sddm.enable = true;
   # services.displayManager.sddm.wayland.enable = true;
 
-  # Add kitty to system packages
-  environment.systemPackages = with pkgs; [
-    kitty
-  ];
-
   # Import home for config
   # home-manager.users."mightypancake" = import "${froot}/home/hyprland.nix";
 }
