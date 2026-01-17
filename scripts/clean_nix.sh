@@ -1,5 +1,4 @@
-
-sudo nixos-rebuild switch --flake /home/mightypancake/nixos
+# sudo nixos-rebuild switch --flake path:$(flake_path)#$(host)-$(hyp)
 echo "collecting garbage"
 sudo nix-collect-garbage
 sudo nix-collect-garbage -d

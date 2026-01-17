@@ -6,49 +6,55 @@
     inputs.home-manager.nixosModules.default
   ];
 
-  nix.settings = {
-    substituters = [
-      "https://cache.nixos.org"
-      "https://hyprland.cachix.org"
-    ];
-    trusted-substituters = [
-      "https://cache.nixos.org"
-      "https://hyprland.cachix.org"
-    ];
-    trusted-public-keys = [
-      "cache.nixos.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-    ];
-  };
+  # nix.settings = {
+  #   substituters = [
+  #     "https://cache.nixos.org"
+  #     "https://hyprland.cachix.org"
+  #   ];
+  #   trusted-substituters = [
+  #     "https://cache.nixos.org"
+  #     "https://hyprland.cachix.org"
+  #   ];
+  #   trusted-public-keys = [
+  #     "cache.nixos.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  #     "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+  #   ];
+  # };
 
   # Bluetooth stuff
   hardware.bluetooth = {
     enable = true;
+    hsphfpd.enable = false;
+
+    disabledPlugins = [
+      "handsfree"
+      "headset"
+    ];
+
     # powerOnBoot = true;
     settings = {
       General = {
         Enable = "Source,Sink,Media,Socket";
+        # Enable = "Sink,Media,Socket";
         # Shows battery charge of connected devices on supported
         # Bluetooth adapters. Defaults to 'false'.
         Experimental = true;
         # When enabled other devices can connect faster to us, however
         # the tradeoff is increased power consumption. Defaults to
         # 'false'.
-        FastConnectable = true;
+        # FastConnectable = true;
       };
       Policy = {
         # Enable all controllers when they are found. This includes
         # adapters present on start as well as adapters that are plugged
         # in later on. Defaults to 'true'.
-        AutoEnable = true;
+        # AutoEnable = false;
+        AutoEnable = false;
+        ReconnectAttempts = 0;
+        ReconnectUUIDs = "";
       };
     };
   };
-
-  # hardware.pulseaudio = {
-  #   enable = true;
-  #   package = pkgs.pulseaudioFull;
-  # };
 
   # bluetooth manager
   services.blueman.enable = true;
@@ -56,6 +62,7 @@
   # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.default = 0;
 
   # Hostname
   networking.hostName = "juliette";
@@ -93,12 +100,14 @@
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
+    audio.enable = true;
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # jack.enable = true;
+    wireplumber.enable = true;
   };
+  # hardware.enableAllFirmware = true;
 
   # User account
   users.users.mightypancake = {
@@ -111,6 +120,8 @@
   # Environment variables
   environment.variables = {
     EDITOR = "hx";
+    GCM_CREDENTIAL_STORE = "cache";
+    # PATH = "/home/yap/:${config.environment.variables.PATH}";
   };
 
   # Home Manager setup
@@ -136,12 +147,22 @@
   environment.systemPackages = with pkgs; [
     # dev - editors
     vim
-    helix
-
+    # helix
+    # helix-gpt
+    # hx-lsp
+    # libclang # DONT USE THIS
+    lldb
+    clang-tools
+    bear
+    # glibc
+    # glibc.dev
+    
     # dev - languages
-    gcc # C
+    gcc   # C
+    clang # C
     go
     lua
+    python312
 
     # dev - tools
     kitty
@@ -149,7 +170,18 @@
     wget
     git-credential-manager
     git
+
+    # Frama-C + provers
     framac
+    alt-ergo
+    cvc5
+    z3
+    why3
+
+    # yap
+    tree-sitter
+    nodejs_24
+    valgrind
 
     # files
     onedrive
@@ -167,6 +199,11 @@
     kittysay
     bottom
     btop
+    lolcat # funny cat
+    grimblast # Screensots
+    appimage-run
+    playerctl
+    ffmpeg_7
 
     # games
     solitaire-tui
@@ -182,7 +219,8 @@
 
     # media
     spotify-player
-    spotifyd
+    # spotifyd
+    spotify
     youtube-tui
     mpv
     cava
@@ -199,7 +237,27 @@
     # (inputs.quickshell.packages.${pkgs.system}.default)
 
     mesa
+
+    # Studies
+    cassandra
+    (python312.withPackages (ps: [ ps.cassandra-driver ]))
+
+    # Stormbound Games
+    unityhub
+    flatpak
+    vscodium
+    slack
+    slack-term
+    firebase-tools
   ];
+
+  services.flatpak.enable = true;
+
+  environment.debuginfodServers = [
+    "valgrind"
+  ];
+
+  services.cassandra.enable = true;
 
   programs.steam = {
     enable = true;
@@ -209,5 +267,5 @@
   };
 
   # System state version
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }

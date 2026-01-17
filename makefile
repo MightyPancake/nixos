@@ -25,6 +25,13 @@ desktop-restart:
 onedrive:
 	make onedrive auth
 
+gh:
+	git config --global credential.helper manager
+	echo -e "Starting the auth"
+	git-credential-manager github login
+	echo -e "List of github logins:"
+	git-credential-manager github list
+
 clean:
 	sudo nix-collect-garbage -d
 	nix-collect-garbage -d

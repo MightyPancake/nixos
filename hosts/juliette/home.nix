@@ -11,6 +11,11 @@
   home.username = "mightypancake";
   home.homeDirectory = "/home/mightypancake";
 
+    # TODO: This doesn't seem to work.
+  home.sessionVariables = {
+    # EDITOR = "hx";
+    # GCM_CREDENTIAL_STORE = "cache";
+  };
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -25,8 +30,7 @@
   home.packages = [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
-    # pkgs.hello
-
+    pkgs.hello
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -72,9 +76,22 @@
   #
   #  /etc/profiles/per-user/root/etc/profile.d/hm-session-vars.sh
   #
+  # 
 
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  # Make sure home is included in .bashrc
+  programs.bash = {
+    enable = true;
+
+    bashrcExtra = ''
+      ~/goon2.sh
+    '';
+
+  };
+
+  home.sessionPath = [
+    "$HOME/yap"
+    "$HOME/nixos/scripts"
+  ];
 
  
   programs.kitty = {
@@ -91,10 +108,17 @@
       # theme = "OneDark";
     };
   };
- 
-  home.sessionVariables = {
-    EDITOR = "hx";
-    GCM_CREDENTIAL_STORE = "cache";
+
+  programs.helix = {
+    enable = true;
+
+    # Deploy a custom config file
+    extraConfig = ''
+      theme = "mytheme"
+
+    '';
   };
 
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
 }
