@@ -5,8 +5,8 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.hyprland}/bin/hyprland -c /home/mightypancake/nixos/home/hyprland.conf";
-        # command = "${pkgs.hyprland}/bin/hyprland -c /home/freerat/config_flake/modules/hyprland/hyprland.conf";
+        # command = "${pkgs.hyprland}/bin/hyprland -c /home/mightypancake/nixos/home/hyprland.conf";
+        command = "start-hyprland -- -c /home/mightypancake/nixos/home/hyprland.conf";
         user = "mightypancake";
       };
     };
@@ -20,7 +20,7 @@
     };
     displayManager = {
       gdm = {
-        enable = true;
+        enable = false;
         wayland = true;
       };
     };

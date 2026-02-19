@@ -21,6 +21,32 @@
   #   ];
   # };
 
+
+  # Nvidia stuff
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia = {
+    # Needed on Wayland
+    modesetting.enable = true;
+
+    # PRIME offload (AMD iGPU + NVIDIA dGPU)
+    prime = {
+      offload.enable = true;
+      offload.enableOffloadCmd = true;
+
+      nvidiaBusId = "PCI:1:0:0";
+      amdgpuBusId = "PCI:4:0:0";
+    };
+
+    open = false;
+    nvidiaSettings = true;
+    powerManagement.enable = true;
+  };
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true; # Steams needs this apparently
+  };
+
   # Bluetooth stuff
   hardware.bluetooth = {
     enable = true;
@@ -63,6 +89,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.default = 0;
+  boot.loader.systemd-boot.configurationLimit = 5;
 
   # Hostname
   networking.hostName = "juliette";
@@ -170,6 +197,7 @@
     wget
     git-credential-manager
     git
+    git-lfs
 
     # Frama-C + provers
     framac
@@ -204,6 +232,7 @@
     appimage-run
     playerctl
     ffmpeg_7
+    obs-studio
 
     # games
     solitaire-tui
@@ -224,6 +253,7 @@
     youtube-tui
     mpv
     cava
+    vlc
 
     # fonts
     nerd-fonts.monaspace
@@ -239,25 +269,41 @@
     mesa
 
     # Studies
-    cassandra
-    (python312.withPackages (ps: [ ps.cassandra-driver ]))
+    # cassandra
+    # (python312.withPackages (ps: [ ps.cassandra-driver ]))
+    anki
 
     # Stormbound Games
     unityhub
     flatpak
-    vscodium
+    # vscodium
+    # vscode
+    vscode-fhs
+    dotnet-sdk
+    mono
     slack
     slack-term
-    firebase-tools
+    # firebase-tools
+    docker
+    docker-client
+
+    # Nvidia
+    mesa-demos
+    vulkan-tools
+    mangohud
+    # fullscreen bs of proton
+    gamescope
   ];
 
+  virtualisation.docker.enable = true;
+
   services.flatpak.enable = true;
+  # Automatically detect USB disks
+  services.udisks2.enable = true;
 
   environment.debuginfodServers = [
     "valgrind"
   ];
-
-  services.cassandra.enable = true;
 
   programs.steam = {
     enable = true;
@@ -265,6 +311,9 @@
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
+
+  programs.git.enable = true;
+  programs.git.lfs.enable = true;
 
   # System state version
   system.stateVersion = "25.11";
