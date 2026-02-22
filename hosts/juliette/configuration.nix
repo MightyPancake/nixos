@@ -41,6 +41,7 @@
     nvidiaSettings = true;
     powerManagement.enable = true;
   };
+  powerManagement.cpuFreqGovernor = "performance";
 
   hardware.graphics = {
     enable = true;
@@ -233,9 +234,12 @@
     playerctl
     ffmpeg_7
     obs-studio
+    jq
 
     # games
     solitaire-tui
+    mangohud
+    protonup-qt
 
     # components
     networkmanager
@@ -252,6 +256,7 @@
     spotify
     youtube-tui
     mpv
+    imv
     cava
     vlc
 
@@ -261,10 +266,12 @@
     # Useful in my hyprland set up
     wtype
     hyprpaper
-    ashell
-    # hyprpanel
+    # ashell
+    hyprpanel
     hyprlock
     # (inputs.quickshell.packages.${pkgs.system}.default)
+    xsettingsd
+    hyprmon
 
     mesa
 
@@ -311,6 +318,11 @@
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
+  # Game performance (perf, gaming, gamer-zone :D)
+  programs.gamemode.enable = true;
+  services.irqbalance.enable = true;
+  boot.kernelParams = [ "amd_pstate=active" ];
+  hardware.enableRedistributableFirmware = true;
 
   programs.git.enable = true;
   programs.git.lfs.enable = true;
