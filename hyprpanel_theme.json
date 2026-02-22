@@ -1,0 +1,15 @@
+{
+  "theme.bar.menus.cards": "#1e1e2e",
+  "theme.bar.buttons.workspaces.occupied": "#57e389",
+  "theme.bar.buttons.workspaces.active": "#5ac8d7",
+  "theme.bar.buttons.workspaces.available": "#9141ac",
+  "theme.bar.buttons.volume.icon": "#b4befe",
+  "theme.bar.buttons.volume.text": "#b4befe",
+  "theme.bar.buttons.bluetooth.icon": "#3584e4",
+  "theme.bar.buttons.bluetooth.text": "#99c1f1",
+  "theme.bar.buttons.battery.icon": "#efeed6",
+  "theme.bar.buttons.dashboard.icon": "#62a0ea",
+  "theme.bar.menus.menu.dashboard.shortcuts.background": "#99c1f1",
+  "theme.bar.menus.menu.dashboard.controls.bluetooth.background": "#3584e4",
+  "theme.bar.menus.menu.dashboard.controls.volume.background": "#b4befe"
+}
