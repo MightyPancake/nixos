@@ -39,6 +39,7 @@
     nixosConfigurations = {
       juliette-plasma = mkHost "juliette" "plasma";
       juliette-hyprland = mkHost "juliette" "hyprland";
+      gmk-hyprland = mkHost "gmk" "hyprland";
     };
   };
 }
