@@ -145,13 +145,19 @@
   ];
 
 
-  # System packages
+# System packages
   environment.systemPackages = with pkgs; [
     # dev - editors
     vim
+    # helix
+    # helix-gpt
+    # hx-lsp
+    # libclang # DONT USE THIS
     lldb
     clang-tools
     bear
+    # glibc
+    # glibc.dev
     
     # dev - languages
     gcc   # C
@@ -202,6 +208,7 @@
     playerctl
     ffmpeg_7
     obs-studio
+    jq
 
     # games
     solitaire-tui
@@ -221,6 +228,7 @@
     spotify
     youtube-tui
     mpv
+    imv
     cava
     vlc
 
@@ -230,14 +238,13 @@
     # Useful in my hyprland set up
     wtype
     hyprpaper
-    ashell
-    # hyprpanel
+    # ashell
+    hyprpanel
     hyprlock
     # (inputs.quickshell.packages.${pkgs.system}.default)
-
-    # Studies
+    xsettingsd
+    hyprmon
   ];
-
   virtualisation.docker.enable = true;
 
   services.flatpak.enable = true;
