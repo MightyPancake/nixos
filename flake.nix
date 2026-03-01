@@ -39,6 +39,8 @@
     nixosConfigurations = {
       juliette-plasma = mkHost "juliette" "plasma";
       juliette-hyprland = mkHost "juliette" "hyprland";
+      maya-plasma = mkHost "maya" "plasma";
+      maya-hyprland = mkHost "maya" "hyprland";
       gmk-hyprland = mkHost "gmk" "hyprland";
     };
   };

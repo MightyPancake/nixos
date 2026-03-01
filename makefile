@@ -1,5 +1,5 @@
 # Default variables
-host ?= juliette
+host ?= maya
 desktop ?= hyprland
 flake_path ?= $(CURDIR)
 
