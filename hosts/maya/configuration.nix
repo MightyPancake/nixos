@@ -93,7 +93,7 @@
   boot.loader.systemd-boot.configurationLimit = 5;
 
   # Hostname
-  networking.hostName = "juliette";
+  networking.hostName = "maya";
 
   # Enable flakes and nix-command
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -235,6 +235,7 @@
     ffmpeg_7
     obs-studio
     jq
+    pkgs.nerd-fonts.monaspace
 
     # games
     solitaire-tui
@@ -300,6 +301,8 @@
     mangohud
     # fullscreen bs of proton
     gamescope
+
+    asusctl
   ];
 
   virtualisation.docker.enable = true;

@@ -99,14 +99,18 @@
     settings ={
       wayland_disable = true;
       # blur
-      background_opacity = 0.85;
+      background = "#111111";
+      background_opacity = 0.7;
       background_blur = 9;
 
       confirm_os_window_close = 0;
       
       font_size = 15.0;
-      # theme = "OneDark";
     };
+  };
+  
+  programs.starship = {
+    enable = true;
   };
 
   programs.helix = {
