@@ -82,6 +82,7 @@
   "theme.bar.buttons.systray.enableBorder": false,
   "bar.clock.format": " %H:%M %A, %d %B",
   "bar.media.show_active_only": true,
+  "bar.media.showArtwork": true,
   "notifications.showActionsOnHover": true,
   "menus.volume.raiseMaximumVolume": false,
   "menus.clock.weather.location": "Poznań",
