@@ -300,6 +300,8 @@
     mangohud
     # fullscreen bs of proton
     gamescope
+
+    asusctl
   ];
 
   virtualisation.docker.enable = true;
