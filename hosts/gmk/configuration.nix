@@ -67,7 +67,7 @@
   boot.loader.systemd-boot.configurationLimit = 5;
 
   # Hostname
-  networking.hostName = "juliette";
+  networking.hostName = "gmk";
 
   # Enable flakes and nix-command
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
