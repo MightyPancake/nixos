@@ -235,6 +235,7 @@
     ffmpeg_7
     obs-studio
     jq
+    pkgs.nerd-fonts.monaspace
 
     # games
     solitaire-tui
