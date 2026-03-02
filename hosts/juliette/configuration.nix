@@ -141,7 +141,7 @@
   users.users.mightypancake = {
     isNormalUser = true;
     description = "Filip";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "adbusers" "kvm" ];
     # no DE-specific packages here
   };
 
@@ -191,6 +191,8 @@
     go
     lua
     python312
+    android-studio
+    android-tools
 
     # dev - tools
     kitty
