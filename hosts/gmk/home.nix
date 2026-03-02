@@ -83,7 +83,7 @@
     enable = true;
 
     bashrcExtra = ''
-      ~/goon2.sh
+      ~/nixos/scripts/splash.sh
     '';
 
   };
