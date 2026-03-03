@@ -1,0 +1,12 @@
+# inherits = "onedark"
+# inherits = "bogster"
+# inherits = "beans"
+# inherits = "kinda_nvim"
+
+# inherits = "nightfox"
+
+# inherits = "sonokai"
+# inherits = "carbon"
+inherits = "catppuccin_frappe"
+
+"ui.background" = "00000000"
