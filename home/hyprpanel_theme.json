@@ -11,5 +11,7 @@
   "theme.bar.buttons.dashboard.icon": "#62a0ea",
   "theme.bar.menus.menu.dashboard.shortcuts.background": "#99c1f1",
   "theme.bar.menus.menu.dashboard.controls.bluetooth.background": "#3584e4",
-  "theme.bar.menus.menu.dashboard.controls.volume.background": "#b4befe"
+  "theme.bar.menus.menu.dashboard.controls.volume.background": "#b4befe",
+  "theme.bar.background": "#000000",
+  "theme.bar.menus.popover.background": "#181824"
 }

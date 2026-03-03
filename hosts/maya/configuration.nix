@@ -151,6 +151,7 @@
     GCM_CREDENTIAL_STORE = "cache";
     # PATH = "/home/yap/:${config.environment.variables.PATH}";
   };
+  qt.style = "adwaita-dark";
 
   # Home Manager setup
   home-manager = {
@@ -162,12 +163,15 @@
 
   # Common applications
   programs.firefox.enable = true;
+  # programs.chromium.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
+    nerd-fonts.monaspace
+    monaspace
   ];
 
 
@@ -229,13 +233,16 @@
     bottom
     btop
     lolcat # funny cat
+    bat
     grimblast # Screensots
     appimage-run
     playerctl
     ffmpeg_7
     obs-studio
     jq
-    pkgs.nerd-fonts.monaspace
+    fzf
+    fd
+    # chromium
 
     # games
     solitaire-tui
@@ -260,6 +267,7 @@
     imv
     cava
     vlc
+    loupe
 
     # fonts
     nerd-fonts.monaspace
@@ -270,7 +278,6 @@
     # ashell
     hyprpanel
     hyprlock
-    # (inputs.quickshell.packages.${pkgs.system}.default)
     xsettingsd
     hyprmon
 
@@ -304,6 +311,11 @@
 
     asusctl
   ];
+
+  # asusd
+  services.asusd = {
+    enable = true;
+  };
 
   virtualisation.docker.enable = true;
 

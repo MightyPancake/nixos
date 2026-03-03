@@ -59,13 +59,13 @@
   "theme.osd.orientation": "vertical",
   "theme.osd.active_monitor": true,
   "theme.osd.muted_zero": false,
-  "menus.dashboard.powermenu.avatar.image": "/home/mightypancake/nixos/usb_duck.png",
+  "menus.dashboard.powermenu.avatar.image": "/home/mightypancake/nixos/usb_duck_transparent.png",
   "wallpaper.pywal": true,
   "wallpaper.image": "/home/mightypancake/nixos/wallpapers/caravan_chill.jpg",
-  "theme.bar.menus.opacity": 100,
+  "theme.bar.menus.opacity": 80,
   "theme.bar.menus.monochrome": false,
   "theme.bar.transparent": false,
-  "theme.bar.opacity": 60,
+  "theme.bar.opacity": 40,
   "menus.dashboard.stats.enable_gpu": false,
   "menus.dashboard.shortcuts.enabled": true,
   "menus.dashboard.directories.enabled": false,
@@ -103,5 +103,8 @@
   "menus.dashboard.shortcuts.left.shortcut1.tooltip": "Firefox",
   "menus.dashboard.shortcuts.left.shortcut1.command": "firefox",
   "menus.dashboard.directories.left.directory1.command": "dolphin Downloads",
-  "menus.dashboard.directories.left.directory2.command": "dolphin Videos"
+  "menus.dashboard.directories.left.directory2.command": "dolphin Videos",
+  "menus.clock.weather.key": "0c4bf3bad0e640bc9a7125725260203",
+  "theme.bar.input": true,
+  "theme.bar.menus.menu.media.card.tint": 75
 }

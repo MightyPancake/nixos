@@ -88,6 +88,11 @@
 
   };
 
+  programs.fzf = {
+    enable = true;
+    enableBashIntegration = true;
+  };
+
   home.sessionPath = [
     "$HOME/yap"
     "$HOME/nixos/scripts"
@@ -105,7 +110,9 @@
 
       confirm_os_window_close = 0;
       
+      # font
       font_size = 15.0;
+      font_family = "monaspace neon nf";
     };
   };
   
