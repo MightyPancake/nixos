@@ -29,9 +29,9 @@
         inherit system;
         specialArgs = { inherit inputs; froot = ./.; };
         modules = [
+          inputs.home-manager.nixosModules.home-manager
           ./hosts/${host}/configuration.nix
           ./desktop/${desktop}.nix
-          inputs.home-manager.nixosModules.default
         ];
       };
   in {

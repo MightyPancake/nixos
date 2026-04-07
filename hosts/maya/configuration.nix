@@ -1,10 +1,11 @@
-{ config, pkgs, inputs, froot, ... }:
+  { config, pkgs, inputs, froot, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
-    inputs.home-manager.nixosModules.default
+    inputs.home-manager.nixosModules.home-manager
   ];
+  # services.home-manager.enable = true;
 
   # nix.settings = {
   #   substituters = [
@@ -167,6 +168,10 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.android_sdk.accept_license = true;
+
+  # Nix LD - For proprietary stuff
+  programs.nix-ld.enable = true;
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
@@ -223,11 +228,9 @@
     # misc
     tree
     cbonsai
-    woomer
     wlogout
     xcursor-pro
     bibata-cursors
-    fastfetch
     cowsay
     kittysay
     bottom
@@ -253,6 +256,7 @@
     networkmanager
     bluetuith
     upower
+    networkmanagerapplet
 
     # comms
     discord
@@ -283,25 +287,40 @@
 
     mesa
 
+    # Games
+    scummvm
+
     # Studies
     # cassandra
     # (python312.withPackages (ps: [ ps.cassandra-driver ]))
     anki
 
     # Stormbound Games
-    unityhub
-    flatpak
-    # vscodium
-    # vscode
+    (pkgs.unityhub.override {
+      extraPkgs = pkgs: with pkgs; [ cpio icu ];
+    })
+    # Unity needs those to install stuff
+    p7zip
+    unzip
+    which
+    gnutar
+    gzip
     vscode-fhs
-    dotnet-sdk
-    mono
     slack
-    slack-term
-    # firebase-tools
     docker
     docker-client
-
+    lazydocker
+    docker-compose
+    jdk11
+    mongosh
+    mongodb-tools #For mongodump
+    redisinsight
+    (androidenv.composeAndroidPackages {
+      platformVersions = [ "34" ];
+      buildToolsVersions = [ "34.0.0" ];
+      includeNDK = true;
+      ndkVersions = [ "23.1.7779620" ];
+    }).androidsdk
     # Nvidia
     mesa-demos
     vulkan-tools
