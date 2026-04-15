@@ -196,10 +196,12 @@
     
     # dev - languages
     gcc   # C
+    tinycc # TCC
     clang # C
     go
     lua
     python312
+    gawk
 
     # dev - tools
     kitty
@@ -245,6 +247,7 @@
     jq
     fzf
     fd
+    bc #GNU Basic Calculator
     # chromium
 
     # games
