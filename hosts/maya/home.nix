@@ -86,6 +86,9 @@
  
   programs.kitty = {
     enable = true;
+    extraConfig = ''
+      include ~/.cache/wal/colors-kitty.conf
+    '';
     settings ={
       wayland_disable = true;
       # blur

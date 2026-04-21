@@ -121,6 +121,8 @@
   # Console keymap
   console.keyMap = "pl2";
 
+  services.gvfs.enable = true;
+
   services.upower.enable = true;
   # Printing
   services.printing.enable = true;
@@ -150,9 +152,13 @@
   environment.variables = {
     EDITOR = "hx";
     GCM_CREDENTIAL_STORE = "cache";
-    # PATH = "/home/yap/:${config.environment.variables.PATH}";
+    GTK_THEME = "Arc-Dark";
   };
-  qt.style = "adwaita-dark";
+  qt = {
+    enable = true;
+    platformTheme = "qt5ct";
+    style = "kvantum";
+  };
 
   # Home Manager setup
   home-manager = {
@@ -172,6 +178,8 @@
 
   # Nix LD - For proprietary stuff
   programs.nix-ld.enable = true;
+
+  programs.dconf.enable = true;
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
@@ -228,6 +236,7 @@
     kdePackages.dolphin
 
     # misc
+    tty-clock
     tree
     cbonsai
     wlogout
@@ -248,7 +257,13 @@
     fzf
     fd
     bc #GNU Basic Calculator
+    gnome-settings-daemon
+    glib-networking
+    python313Packages.gpustat
     # chromium
+    # Dark theme on QT apps
+    kdePackages.qtstyleplugin-kvantum
+    catppuccin-kvantum
 
     # games
     solitaire-tui
@@ -260,15 +275,20 @@
     bluetuith
     upower
     networkmanagerapplet
+    easyeffects #For microphone being shitty
+    brightnessctl
 
     # comms
     discord
+    # vesktop #Modded discord basically
+    
     signal-desktop-bin
 
     # media
     spotify-player
     # spotifyd
     spotify
+    spicetify-cli
     youtube-tui
     mpv
     imv
@@ -303,12 +323,16 @@
       extraPkgs = pkgs: with pkgs; [ cpio icu ];
     })
     # Unity needs those to install stuff
-    p7zip
+    zip
     unzip
     which
     gnutar
-    gzip
     vscode-fhs
+    # Darkmode for QT and GTK
+    libsForQt5.qt5ct
+    arc-theme
+    nwg-look
+
     slack
     docker
     docker-client
@@ -341,7 +365,17 @@
 
   virtualisation.docker.enable = true;
 
+  # Enable flatpak and avoid annoying user manager hangs on logout
   services.flatpak.enable = true;
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+    config = {
+      common.default = [ "gtk" "hyprland" ];
+    };
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+
   # Automatically detect USB disks
   services.udisks2.enable = true;
 
