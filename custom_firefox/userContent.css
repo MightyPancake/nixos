@@ -1,0 +1,99 @@
+@-moz-document url(about:newtab), url("about:home"), url("about:blank"), url("about:privatebrowsing"), url("about:welcome") {
+	html {
+		--ntp-overlay: rgba(36, 36, 36, 0.20);
+		--ntp-surface: rgba(52, 52, 52, 0.30);
+		--ntp-text: #f2f2f2;
+	}
+
+	html,
+	body {
+		background: transparent !important;
+		background-color: transparent !important;
+		background-image: none !important;
+	}
+
+	html {
+		--newtab-background-color: transparent !important;
+		--newtab-background-color-secondary: transparent !important;
+		--in-content-page-background: transparent !important;
+		--in-content-page-color: #f2f2f2 !important;
+		--newtab-wallpaper: none !important;
+		--newtab-wallpaper-dark: none !important;
+		--newtab-wallpaper-light: none !important;
+		--lwt-newtab-image: none !important;
+	}
+
+	body.activity-stream,
+	body.activity-stream .outer-wrapper,
+	body.activity-stream main,
+	body.activity-stream .body-wrapper {
+		--newtab-background-color: transparent !important;
+		--newtab-background-color-secondary: transparent !important;
+		--newtab-wallpaper: none !important;
+		--newtab-wallpaper-dark: none !important;
+		--newtab-wallpaper-light: none !important;
+		--lwt-newtab-image: none !important;
+	}
+
+	body.activity-stream,
+	body.activity-stream::before,
+	body.activity-stream .outer-wrapper,
+	body.activity-stream .outer-wrapper .non-collapsible-section,
+	body.activity-stream main,
+	body.activity-stream .top-site-outer,
+	body.activity-stream .top-sites-list,
+	body.activity-stream .search-wrapper,
+	body.activity-stream .body-wrapper {
+		background: transparent !important;
+		background-color: transparent !important;
+	}
+
+	body.activity-stream::before {
+		content: "" !important;
+		position: fixed !important;
+		inset: 0 !important;
+		background: var(--ntp-overlay) !important;
+		pointer-events: none !important;
+		z-index: 0 !important;
+	}
+
+	body.activity-stream .outer-wrapper {
+		position: relative !important;
+		z-index: 1 !important;
+	}
+
+	body.activity-stream,
+	body.activity-stream .top-site-outer .title,
+	body.activity-stream .section-title,
+	body.activity-stream .contentSearchSuggestionTable {
+		color: var(--ntp-text) !important;
+		text-shadow: 0 1px 2px rgba(20, 20, 20, 0.45) !important;
+	}
+
+	body.activity-stream .contentSearchSuggestionTable,
+	body.activity-stream .contentSearchSuggestionsContainer,
+	body.activity-stream .contentSearchSuggestionTable tr,
+	body.activity-stream .contentSearchSuggestionTable td {
+		background: rgba(44, 44, 44, 0.72) !important;
+		border-color: rgba(255, 255, 255, 0.14) !important;
+	}
+
+	body.activity-stream .contentSearchSuggestionTable tr:hover,
+	body.activity-stream .contentSearchSuggestionTable tr[aria-selected="true"] {
+		background: rgba(255, 255, 255, 0.14) !important;
+	}
+
+	body.activity-stream .search-wrapper input,
+	body.activity-stream .search-handoff-button {
+		background: var(--ntp-surface) !important;
+		color: var(--ntp-text) !important;
+		border: 1px solid rgba(255, 255, 255, 0.22) !important;
+	}
+
+	#root [class*="wallpaper"],
+	#root [class*="Wallpaper"],
+	#root [style*="background-image"] {
+		background-image: none !important;
+		background: transparent !important;
+	}
+}

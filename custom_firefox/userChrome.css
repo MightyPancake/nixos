@@ -1,0 +1,110 @@
+:root {
+    --bg: #2a2a2a58;
+    --topbar-bg: rgba(0, 0, 0, 0.10);
+    --toolbar-bgcolor: var(--topbar-bg) !important;
+    --toolbar-non-lwt-bgcolor: var(--topbar-bg) !important;
+    --lwt-accent-color: var(--topbar-bg) !important;
+    --lwt-header-image: none !important;
+    --tabpanel-background-color: #00000000 !important;
+    --in-content-page-background: #00000000 !important;
+    --in-content-box-background: #00000088 !important;
+    --newtab-background-color: #00000000 !important;
+    --newtab-background-color-secondary: #00000000 !important;
+    --lwt-newtab-image: none !important;
+    --tabs-navbar-separator-color: rgba(0, 0, 0, 0) !important;
+    --toolbar-field-focus-background-color: transparent !important;
+}
+
+tab.tabbrowser-tab[selected="true"] stack.tab-stack vbox.tab-background {
+    background: #FFFFFF33 !important;
+}
+
+toolbar {
+    background: var(--topbar-bg) !important;
+    background-color: var(--topbar-bg) !important;
+    background-image: none !important;
+}
+
+/* window transparencies */
+#main-window {
+    background: var(--bg) !important;
+}
+
+/* navbar / tabbar / titlebar */
+#nav-bar {
+    background: var(--topbar-bg) !important;
+    background-color: var(--topbar-bg) !important;
+    background-image: none !important;
+}
+#navigator-toolbox {
+    background: var(--topbar-bg) !important;
+    background-color: var(--topbar-bg) !important;
+    background-image: none !important;
+}
+
+#titlebar,
+#TabsToolbar {
+    background: var(--topbar-bg) !important;
+    background-color: var(--topbar-bg) !important;
+    background-image: none !important;
+}
+
+hbox#urlbar[open="true"] hbox#urlbar-background {
+    background: #2a2a2a2f !important;
+}
+
+#browser:not(.browser-toolbox-background) {
+    background-color: transparent !important;
+}
+
+#appcontent,
+#tabbrowser-tabbox,
+#tabbrowser-tabpanels,
+tabpanels,
+.browserContainer,
+.browserStack,
+browser {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+#main-window,
+#main-window #browser,
+#main-window #appcontent {
+    -moz-appearance: none !important;
+}
+
+#navigator-toolbox > toolbar:not(#toolbar-menubar):not(#TabsToolbar):not(:-moz-lwtheme) {
+    margin-bottom: -1px !important;
+}
+
+/* Black line */
+#navigator-toolbox {
+    border-bottom: none !important;
+}
+
+
+#urlbar-background {
+    background: #FFFFFF33 !important;
+}
+
+#urlbar[open] {
+    background-color: transparent !important;
+}
+
+#urlbar-results,
+.urlbarView,
+.urlbarView-body-outer,
+.urlbarView-body-inner {
+    background: rgba(42, 42, 42, 0.76) !important;
+    color: #f2f2f2 !important;
+}
+
+.urlbarView-row[selected],
+.urlbarView-row:hover {
+    background: rgba(255, 255, 255, 0.16) !important;
+}
+
+#searchbar:focus-within{
+    background: transparent  !important;
+}

@@ -1,8 +1,11 @@
 { config, pkgs, inputs, froot, ... }:
 
-{
+let
+  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+in {
   imports = [
     # Configured programs go here
+    inputs.spicetify-nix.homeManagerModules.spicetify
     ../../programs/rofi.nix
     # kitty should go here but im lazy
   ];
@@ -31,18 +34,80 @@
   ];
 
   # Fastfetch
-  home.file.".config/fastfetch/config".text = ''
-    [options]
-    colors=true
-    image_source=ascii
-    ascii_distro=nixos
-
-    [blocks]
-    info=true
-    cpu=true
-    gpu=true
-    memory=true
-    disk=true
+  home.file.".config/fastfetch/config.jsonc".text = ''
+  {
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+    "display": {
+      "key": {
+        "type": "icon"
+      }
+    },
+    "logo": {
+      "type": "file",
+      "source": "~/nixos/ascii-art/duck6.txt",
+      "padding": {
+        "top": 2,
+        "left": 2,
+        "right": 4
+      },
+    },
+    "modules": [
+      {
+        "type": "separator",
+        "string": " ",
+        "times": 1
+      },
+      "title",
+      {
+        "type": "separator",
+        "string": " ",
+        "times": 2
+      },
+      {
+        "type": "os",
+        "keyIcon": "",
+        "color": "blue",
+        "format": "{name}"
+      },
+      {
+        "type": "memory",
+        "keyIcon": ""
+      },
+      {
+        "type": "cpu",
+        "keyIcon": ""
+      },
+      {
+        "type": "gpu",
+        "keyIcon": "󰾲"
+      },
+      {
+        "type": "de",
+        "keyIcon": ""
+      },
+      {
+        "type": "terminal",
+        "keyIcon": ""
+      },
+      {
+        "type": "separator",
+        "string": " ",
+        "times": 1
+      },
+      {
+        "type": "colors",
+        "keyIcon": "",
+        "paddingLeft": 2,
+        "block": {
+          "width": 4,
+          "range": [
+            0,
+            48
+          ]
+        }
+      },
+    ]
+  }
   '';
 
   # Home Manager can also manage your environment variables through
@@ -76,6 +141,13 @@
   programs.fzf = {
     enable = true;
     enableBashIntegration = true;
+  };
+
+  programs.spicetify = {
+    enable = true;
+    theme = spicePkgs.themes.hazy;
+    # theme = spicePkgs.themes.text;
+    wayland = true;
   };
 
   home.sessionPath = [

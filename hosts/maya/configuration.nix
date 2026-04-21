@@ -162,6 +162,8 @@
 
   # Home Manager setup
   home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
     extraSpecialArgs = { inherit inputs froot; };
     users = {
       "mightypancake" = import ./home.nix;
@@ -287,8 +289,6 @@
     # media
     spotify-player
     # spotifyd
-    spotify
-    spicetify-cli
     youtube-tui
     mpv
     imv
@@ -307,6 +307,7 @@
     hyprlock
     xsettingsd
     hyprmon
+    pywalfox-native
 
     mesa
 

@@ -29,3 +29,7 @@ sed -i '1d' "$QUEUE_FILE"
 hyprpanel sw "$NEXT_WP"
 
 echo "Wallpaper changed to: $(basename "$NEXT_WP")"
+
+# 7. pywalfox update
+echo "Sending update request to pywalfox"
+pywalfox update
