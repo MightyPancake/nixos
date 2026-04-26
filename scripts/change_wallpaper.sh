@@ -33,3 +33,7 @@ echo "Wallpaper changed to: $(basename "$NEXT_WP")"
 # 7. pywalfox update
 echo "Sending update request to pywalfox"
 pywalfox update
+
+# 8. Update CAVA config
+echo "Updating CAVA config with new pywal colors and restart it"
+update_cava_pywal.sh 8 --restart-cava
