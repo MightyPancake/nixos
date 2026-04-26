@@ -44,7 +44,7 @@ in {
     },
     "logo": {
       "type": "file",
-      "source": "~/nixos/ascii-art/duck6.txt",
+      "source": "~/nixos/ascii-art/lolduck.txt",
       "padding": {
         "top": 2,
         "left": 2,
