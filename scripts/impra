@@ -1,0 +1,18 @@
+spotify & disown
+sleep 0.5
+
+kttyl sleep 4 & kitten icat ~/qr.png & disown
+sleep 0.5
+
+hyprctl dispatch togglesplit
+sleep 0.5
+
+kttyl kittysay "Kod QR do jama jak coś" & disown
+sleep 0.5
+
+kttyl cava & disown
+sleep 0.5
+
+hyprctl dispatch resizeactive 0 350
+sleep 0.5
+

@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+usage() {
+    echo "Usage: $(basename "$0") [--] <command> [args...]"
+    echo "Runs the given command in a new kitty window and keeps it open after exit."
+    echo
+    echo "Examples:"
+    echo "  $(basename "$0") cava"
+    echo "  $(basename "$0") -- btop"
+    echo "  $(basename "$0") -- bash -lc 'echo hello && sleep 2'"
+}
+
+if (($# == 0)); then
+    usage
+    exit 1
+fi
+
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+    usage
+    exit 0
+fi
+
+if [[ "${1:-}" == "--" ]]; then
+    shift
+fi
+
+if (($# == 0)); then
+    echo "Error: no command provided." >&2
+    usage
+    exit 1
+fi
+
+if (($# == 1)); then
+    command_string="$1"
+else
+    command_string="$(printf '%q ' "$@")"
+fi
+exec kitty bash -lc "$command_string; status=\$?; echo; read -r _; exit \$status"

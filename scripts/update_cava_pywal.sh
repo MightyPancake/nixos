@@ -152,6 +152,52 @@ if (( ${#palette[@]} < 2 )); then
     exit 1
 fi
 
+if ! command -v python3 >/dev/null 2>&1; then
+    echo "Error: python3 is required to sort colors by hue" >&2
+    exit 1
+fi
+
+mapfile -t palette < <(
+    printf '%s\n' "${palette[@]}" | python3 -c '
+import colorsys
+import sys
+
+colors = [line.strip() for line in sys.stdin if line.strip()]
+
+def rgb(color_hex):
+    value = color_hex.lstrip("#")
+    return tuple(int(value[i:i+2], 16) for i in (0, 2, 4))
+
+def luminance(color_hex):
+    red, green, blue = rgb(color_hex)
+    return 0.2126 * red + 0.7152 * green + 0.0722 * blue
+
+if len(colors) > 1:
+    darkest = min(colors, key=luminance)
+    removed = False
+    filtered = []
+    for color in colors:
+        if not removed and color == darkest:
+            removed = True
+            continue
+        filtered.append(color)
+    colors = filtered
+
+def value(color_hex):
+    red, green, blue = rgb(color_hex)
+    _, _, value_component = colorsys.rgb_to_hsv(red / 255.0, green / 255.0, blue / 255.0)
+    return value_component
+
+for color in sorted(colors, key=value):
+    print(color)
+'
+)
+
+if (( ${#palette[@]} < 2 )); then
+    echo "Error: not enough colors left after removing darkest color" >&2
+    exit 1
+fi
+
 gradient_colors=()
 palette_last_index=$(( ${#palette[@]} - 1 ))
 
@@ -176,6 +222,7 @@ BEGIN {
 }
 
 function print_gradient_block(   j) {
+    print "background = default"
     print "gradient = 1"
     print "gradient_count = " segments
     for (j = 1; j <= segments; j++) {
@@ -200,7 +247,7 @@ in_color && /^\[/ {
     next
 }
 
-in_color && /^gradient([[:space:]]*|_count[[:space:]]*|_color_[0-9]+[[:space:]]*)=/ {
+in_color && /^(background[[:space:]]*|gradient([[:space:]]*|_count[[:space:]]*|_color_[0-9]+[[:space:]]*))=/ {
     if (!inserted) {
         print_gradient_block()
         inserted = 1

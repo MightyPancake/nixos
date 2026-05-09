@@ -101,6 +101,13 @@
 
   # Networking
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.powersave = false;
+
+  # AX210 reliability: disable aggressive Wi-Fi power saving
+  boot.extraModprobeConfig = ''
+    options iwlwifi power_save=0
+    options iwlmvm power_scheme=1
+  '';
 
   # Time zone and locales
   time.timeZone = "Europe/Warsaw";
@@ -193,9 +200,8 @@
   # System packages
   environment.systemPackages = with pkgs; [
     # dev - editors
-    vim
+    # vim
     # helix
-    # helix-gpt
     # hx-lsp
     # libclang # DONT USE THIS
     lldb
@@ -258,6 +264,7 @@
     jq
     fzf
     fd
+    yazi
     bc #GNU Basic Calculator
     gnome-settings-daemon
     glib-networking
@@ -314,7 +321,7 @@
     # Games
     scummvm
 
-    # Studies
+    # Studies/studia
     # cassandra
     # (python312.withPackages (ps: [ ps.cassandra-driver ]))
     anki
@@ -323,12 +330,14 @@
     (pkgs.unityhub.override {
       extraPkgs = pkgs: with pkgs; [ cpio icu ];
     })
+    heroku
     # Unity needs those to install stuff
     zip
     unzip
     which
     gnutar
     vscode-fhs
+    zed-editor
     # Darkmode for QT and GTK
     libsForQt5.qt5ct
     arc-theme
@@ -357,6 +366,9 @@
     gamescope
 
     asusctl
+
+    # AI
+    claude-code
   ];
 
   # asusd
