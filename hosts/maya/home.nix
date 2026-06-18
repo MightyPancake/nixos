@@ -26,7 +26,7 @@ in {
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "25.05"; # Please read the comment before changing.
+  home.stateVersion = "26.05"; # Please read the comment before changing.
 
 
   home.packages = with pkgs; [
@@ -168,13 +168,13 @@ in {
     enable = true;
     extraConfig = ''
       include ~/.cache/wal/colors-kitty.conf
+      # Restore transparency (wal sets opacity to 1.0)
+      background_opacity 0.7
+      background_blur 9
     '';
     settings ={
-      wayland_disable = true;
       # blur
       background = "#111111";
-      background_opacity = 0.7;
-      background_blur = 9;
 
       confirm_os_window_close = 0;
       

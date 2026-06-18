@@ -22,6 +22,8 @@
   #   ];
   # };
 
+  # For wasi
+  nixpkgs.config.allowUnsupportedSystem = true;
 
   # Nvidia stuff
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -185,6 +187,17 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.android_sdk.accept_license = true;
 
+  # Replace EOL nodejs_20 with nodejs_24
+  nixpkgs.overlays = [
+    (final: prev: {
+      nodejs_20 = prev.nodejs_24;
+      nodejs-slim_20 = prev.nodejs-slim_24 or prev.nodejs_24;
+    })
+  ];
+
+  # Skip building docs for system packages (python doc build is broken upstream)
+  documentation.enable = false;
+
   # Nix LD - For proprietary stuff
   programs.nix-ld.enable = true;
 
@@ -218,6 +231,9 @@
     lua
     python312
     gawk
+    typst
+    typstyle
+    typst-live
 
     # dev - tools
     kitty
@@ -226,6 +242,9 @@
     git-credential-manager
     git
     git-lfs
+    wasmtime
+    pkgsCross.wasi32.stdenv.cc
+    llvmPackages.lld
 
     # Frama-C + provers
     framac
@@ -288,10 +307,10 @@
     brightnessctl
 
     # comms
-    discord
+    discord-ptb
     # vesktop #Modded discord basically
     
-    signal-desktop-bin
+    signal-desktop
 
     # media
     spotify-player
@@ -309,12 +328,15 @@
     # Useful in my hyprland set up
     wtype
     hyprpaper
+    awww # wallpaper daemon for hyprpanel (renamed from swww)
     # ashell
     hyprpanel
     hyprlock
     xsettingsd
     hyprmon
     pywalfox-native
+    pywal # needed by change_wallpaper.sh for color generation
+    matugen # hyprpanel theme engine (auto-detected, required)
 
     mesa
 
@@ -336,7 +358,7 @@
     unzip
     which
     gnutar
-    vscode-fhs
+    vscode
     zed-editor
     # Darkmode for QT and GTK
     libsForQt5.qt5ct
@@ -368,7 +390,8 @@
     asusctl
 
     # AI
-    claude-code
+    # claude-code
+    opencode
   ];
 
   # asusd
@@ -412,5 +435,5 @@
   programs.git.lfs.enable = true;
 
   # System state version
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }

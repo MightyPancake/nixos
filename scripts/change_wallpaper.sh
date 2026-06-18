@@ -30,9 +30,13 @@ hyprpanel sw "$NEXT_WP"
 
 echo "Wallpaper changed to: $(basename "$NEXT_WP")"
 
+# 6.5. Generate pywal colors from the new wallpaper
+echo "Generating pywal colors..."
+wal -i "$NEXT_WP" -q 2>/dev/null || true
+
 # 7. pywalfox update
 echo "Sending update request to pywalfox"
-pywalfox update
+timeout 5 pywalfox update 2>/dev/null || true
 
 # 8. Update CAVA config
 echo "Updating CAVA config with new pywal colors and restart it"
