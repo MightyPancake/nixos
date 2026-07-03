@@ -181,6 +181,7 @@
 
   # Common applications
   programs.firefox.enable = true;
+  programs.ladybird.enable = true;
   # programs.chromium.enable = true;
 
   # Allow unfree packages
@@ -390,7 +391,7 @@
     asusctl
 
     # AI
-    # claude-code
+    claude-code
     opencode
   ];
 
