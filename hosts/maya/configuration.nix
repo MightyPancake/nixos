@@ -133,6 +133,8 @@
   services.gvfs.enable = true;
 
   services.upower.enable = true;
+
+  services.power-profiles-daemon.enable = true;
   # Printing
   services.printing.enable = true;
 
@@ -327,6 +329,8 @@
     nerd-fonts.monaspace
 
     # Useful in my hyprland set up
+    matugen
+    awww
     wtype
     # ashell
     wayle

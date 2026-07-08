@@ -30,9 +30,9 @@ wayle wallpaper set --fit fill "$NEXT_WP"
 
 echo "Wallpaper changed to: $(basename "$NEXT_WP")"
 
-# 6.5. Generate pywal colors from the new wallpaper
+# 6.5. Generate pywal colors from the new wallpaper (don't set wallpaper)
 echo "Generating pywal colors..."
-wal -i "$NEXT_WP" -q --saturate 0.05
+wal -i "$NEXT_WP" -n -q --saturate 0.05
 
 # 7. pywalfox update
 echo "Sending update request to pywalfox"

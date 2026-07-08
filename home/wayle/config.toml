@@ -1,145 +1,130 @@
-# Wayle configuration — mirrors previous hyprpanel setup
-imports = []
-
 [general]
 font-sans = "Monaspace Neon"
 font-mono = "Monaspace Neon"
-tearing-mode = true
 
 [bar]
-scale = 0.9
-location = "top"
-exclusive = true
-layer = "top"
-bg = "bg-surface"
-background-opacity = 40
-border-location = "none"
-border-width = 0
-shadow = "none"
-button-variant = "block-prefix"
-button-opacity = 100
-button-bg-opacity = 100
-button-icon-size = 1.0
-button-icon-padding = 1.0
-button-label-size = 1.0
-button-label-weight = "semibold"
-button-label-padding = 1.0
-button-rounding = "sm"
-button-gap = 1.0
-button-icon-position = "start"
-button-border-location = "none"
-button-border-width = 0
-dropdown-shadow = true
-dropdown-opacity = 80
-dropdown-autohide = true
-dropdown-freeze-label = true
+bg = "transparent"
+button-variant = "icon-square"
+button-bg-opacity = 65
+button-rounding = "full"
+button-gap = 1.0499999523162842
+button-group-opacity = 65
+button-group-rounding = "full"
+dropdown-shadow = false
 
 [[bar.layout]]
 monitor = "*"
 show = true
-left = ["workspaces"]
-center = ["media", "volume"]
+left = [
+    "dashboard",
+    "hyprland-workspaces",
+]
 right = [
     "systray",
-    "network",
+    { name = "left", modules = [
     "bluetooth",
+    "network",
     "battery",
     "clock",
+] },
     "notifications",
 ]
 
+[[bar.layout.center]]
+name = "media_group"
+modules = [
+    "media",
+    "cava",
+    "volume",
+]
+
 [styling]
-scale = 1.01
-rounding = "sm"
-theme-provider = "pywal"
-theming-monitor = ""
-matugen-scheme = "tonal-spot"
-pywal-saturation = 0.05
-pywal-contrast = 3.0
-pywal-light = false
-pywal-apply-globally = true
+rounding = "md"
+theme-provider = "matugen"
+matugen-scheme = "content"
+matugen-contrast = 0.19727891156462585
+pywal-saturation = 0.0
 
 [styling.palette]
-bg = "#141420"
-surface = "#1c1c2c"
-elevated = "#262638"
-fg = "#d4d6e8"
-fg-muted = "#8a8ca4"
-primary = "#e0947a"
-red = "#e46870"
-yellow = "#e0b870"
-green = "#68c898"
-blue = "#78a0e0"
-
-[modules.custom]
+bg = "#11111b"
+surface = "#181825"
+elevated = "#1e1e2e"
+fg = "#cdd6f4"
+fg-muted = "#bac2de"
+primary = "#b4befe"
+red = "#f38ba8"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+blue = "#74c7ec"
 
 [modules.battery]
-icon-show = true
-icon-color = "auto"
-label-show = true
-label-color = "auto"
-format = "{{ percent }}%"
-button-bg-color = "bg-surface-elevated"
-left-click = "dropdown:battery"
+button-bg-color = "transparent"
 
 [modules.bluetooth]
-icon-show = true
-icon-color = "auto"
-label-show = true
-label-color = "auto"
-label-max-length = 15
-button-bg-color = "bg-surface-elevated"
-left-click = "dropdown:bluetooth"
+border-color = "yellow"
+icon-bg-color = "yellow"
+label-color = "yellow"
+button-bg-color = "transparent"
+
+[modules.cava]
+noise-reduction = 0.7006802721088435
+style = "wave"
+direction = "mirror"
+button-bg-color = "transparent"
+bar-gap = 3
+left-click = "dropdown:audio"
+scroll-up = "volume-step.sh up"
+scroll-down = "volume-step.sh down"
 
 [modules.clock]
-format = "%H:%M %A, %d %B"
+format = "%a, %d %b %H:%M"
+border-color = "yellow"
 icon-show = false
-label-show = true
-label-color = "auto"
-button-bg-color = "bg-surface-elevated"
+icon-bg-color = "yellow"
+label-color = "yellow"
+button-bg-color = "transparent"
+dropdown-show-seconds = true
+
+[modules.hyprland-workspaces]
+min-workspace-count = 3
+app-icons-show = true
+icon-gap = 0.20000000298023224
+label-size = 0.800000011920929
+
+[modules.hyprland-workspaces.app-icon-map]
+"title:*YouTube*" = "si-youtube"
+"*kitty*" = "tb-terminal-2-symbolic"
+"title:*Unity*" = "si-unity-symbolic"
+"*firefox*" = "si-firefoxbrowser"
+"title:*Jenkins*" = "si-jenkins"
 
 [modules.media]
-display-time = true
-display-time-tooltip = true
-show-active-only = true
-button-bg-color = "bg-surface-elevated"
+icon-type = "spinning-disc"
+label-max-length = 30
+button-bg-color = "transparent"
 
 [modules.network]
-label-show = true
-label-color = "auto"
-show-wifi-info = false
-truncation = false
-button-bg-color = "bg-surface-elevated"
+border-color = "yellow"
+icon-bg-color = "yellow"
+label-color = "yellow"
+button-bg-color = "transparent"
 
 [modules.notifications]
-button-bg-color = "bg-surface-elevated"
-show-total = false
-hide-count-when-zero = false
-
-[modules.systray]
-button-bg-color = "bg-surface-elevated"
+icon-bg-color = "blue"
+label-show = false
 
 [modules.volume]
-icon-show = true
-icon-color = "auto"
-label-show = true
-label-color = "auto"
-button-bg-color = "bg-surface-elevated"
-raise-maximum = false
-
-[modules.workspaces]
-show-numbered = false
-show-icons = false
-workspace-mask = false
-show-ws-icons = true
-show-application-icons = true
-application-icon-once-per-workspace = true
-monitor-specific = false
-numbered-active-indicator = "highlight"
-smart-highlight = true
-button-bg-color = "bg-surface-elevated"
+icon-show = false
+icon-bg-color = "accent"
+label-color = "accent"
+button-bg-color = "transparent"
+scroll-up = "volume-step.sh up"
+scroll-down = "volume-step.sh down"
 
 [wallpaper]
-path = ""
-fit = "fill"
-cycle = false
+transition-type = "random"
+transition-duration = 0.800000011920929
+cycling-directory = "/home/mightypancake/nixos/wallpapers/adventure.jpeg"
+cycling-mode = "shuffle"
+cycling-interval-mins = 1
+cycling-same-image = true
