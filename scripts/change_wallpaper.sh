@@ -1,5 +1,5 @@
 WALLPAPER_DIR="$HOME/nixos/wallpapers"
-QUEUE_FILE="/tmp/hyprpanel_wp_queue"
+QUEUE_FILE="/tmp/wayle_wp_queue"
 
 # 1. Check if the wallpaper directory exists
 if [ ! -d "$WALLPAPER_DIR" ]; then
@@ -25,14 +25,14 @@ fi
 # 5. Remove the selected wallpaper from the queue file (pops it off the list)
 sed -i '1d' "$QUEUE_FILE"
 
-# 6. Apply the wallpaper using hyprpanel
-hyprpanel sw "$NEXT_WP"
+# 6. Apply the wallpaper using wayle
+wayle wallpaper set --fit fill "$NEXT_WP"
 
 echo "Wallpaper changed to: $(basename "$NEXT_WP")"
 
 # 6.5. Generate pywal colors from the new wallpaper
 echo "Generating pywal colors..."
-wal -i "$NEXT_WP" -q 2>/dev/null || true
+wal -i "$NEXT_WP" -q --saturate 0.05
 
 # 7. pywalfox update
 echo "Sending update request to pywalfox"

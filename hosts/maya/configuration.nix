@@ -328,16 +328,13 @@
 
     # Useful in my hyprland set up
     wtype
-    hyprpaper
-    awww # wallpaper daemon for hyprpanel (renamed from swww)
     # ashell
-    hyprpanel
+    wayle
     hyprlock
     xsettingsd
     hyprmon
     pywalfox-native
     pywal # needed by change_wallpaper.sh for color generation
-    matugen # hyprpanel theme engine (auto-detected, required)
 
     mesa
 

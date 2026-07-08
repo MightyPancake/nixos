@@ -239,7 +239,7 @@
     wtype
     hyprpaper
     # ashell
-    hyprpanel
+    wayle
     hyprlock
     # (inputs.quickshell.packages.${pkgs.system}.default)
     xsettingsd

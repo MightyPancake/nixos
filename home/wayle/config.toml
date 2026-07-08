@@ -1,0 +1,145 @@
+# Wayle configuration — mirrors previous hyprpanel setup
+imports = []
+
+[general]
+font-sans = "Monaspace Neon"
+font-mono = "Monaspace Neon"
+tearing-mode = true
+
+[bar]
+scale = 0.9
+location = "top"
+exclusive = true
+layer = "top"
+bg = "bg-surface"
+background-opacity = 40
+border-location = "none"
+border-width = 0
+shadow = "none"
+button-variant = "block-prefix"
+button-opacity = 100
+button-bg-opacity = 100
+button-icon-size = 1.0
+button-icon-padding = 1.0
+button-label-size = 1.0
+button-label-weight = "semibold"
+button-label-padding = 1.0
+button-rounding = "sm"
+button-gap = 1.0
+button-icon-position = "start"
+button-border-location = "none"
+button-border-width = 0
+dropdown-shadow = true
+dropdown-opacity = 80
+dropdown-autohide = true
+dropdown-freeze-label = true
+
+[[bar.layout]]
+monitor = "*"
+show = true
+left = ["workspaces"]
+center = ["media", "volume"]
+right = [
+    "systray",
+    "network",
+    "bluetooth",
+    "battery",
+    "clock",
+    "notifications",
+]
+
+[styling]
+scale = 1.01
+rounding = "sm"
+theme-provider = "pywal"
+theming-monitor = ""
+matugen-scheme = "tonal-spot"
+pywal-saturation = 0.05
+pywal-contrast = 3.0
+pywal-light = false
+pywal-apply-globally = true
+
+[styling.palette]
+bg = "#141420"
+surface = "#1c1c2c"
+elevated = "#262638"
+fg = "#d4d6e8"
+fg-muted = "#8a8ca4"
+primary = "#e0947a"
+red = "#e46870"
+yellow = "#e0b870"
+green = "#68c898"
+blue = "#78a0e0"
+
+[modules.custom]
+
+[modules.battery]
+icon-show = true
+icon-color = "auto"
+label-show = true
+label-color = "auto"
+format = "{{ percent }}%"
+button-bg-color = "bg-surface-elevated"
+left-click = "dropdown:battery"
+
+[modules.bluetooth]
+icon-show = true
+icon-color = "auto"
+label-show = true
+label-color = "auto"
+label-max-length = 15
+button-bg-color = "bg-surface-elevated"
+left-click = "dropdown:bluetooth"
+
+[modules.clock]
+format = "%H:%M %A, %d %B"
+icon-show = false
+label-show = true
+label-color = "auto"
+button-bg-color = "bg-surface-elevated"
+
+[modules.media]
+display-time = true
+display-time-tooltip = true
+show-active-only = true
+button-bg-color = "bg-surface-elevated"
+
+[modules.network]
+label-show = true
+label-color = "auto"
+show-wifi-info = false
+truncation = false
+button-bg-color = "bg-surface-elevated"
+
+[modules.notifications]
+button-bg-color = "bg-surface-elevated"
+show-total = false
+hide-count-when-zero = false
+
+[modules.systray]
+button-bg-color = "bg-surface-elevated"
+
+[modules.volume]
+icon-show = true
+icon-color = "auto"
+label-show = true
+label-color = "auto"
+button-bg-color = "bg-surface-elevated"
+raise-maximum = false
+
+[modules.workspaces]
+show-numbered = false
+show-icons = false
+workspace-mask = false
+show-ws-icons = true
+show-application-icons = true
+application-icon-once-per-workspace = true
+monitor-specific = false
+numbered-active-indicator = "highlight"
+smart-highlight = true
+button-bg-color = "bg-surface-elevated"
+
+[wallpaper]
+path = ""
+fit = "fill"
+cycle = false
