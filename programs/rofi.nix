@@ -5,21 +5,23 @@ let
   rofiConfig = builtins.path {
     path = "${froot}/home/rofi/config.rasi";
   };
+
+  # pywal template: renders to ~/.cache/wal/colors-rofi.rasi, @imported by
+  # config.rasi so rofi's palette follows the wallpaper the same way kitty's does.
+  rofiWalTemplate = builtins.path {
+    path = "${froot}/home/rofi/wal-template.rasi";
+  };
 in
 {
   programs.rofi = {
     enable = true;
 
-    # This makes Home Manager symlink the config.rasi into ~/.config/rofi/config.rasi
-    # theme = rofiConfig;
-    theme = "Arc-Dark";
+    # Symlinks config.rasi into ~/.config/rofi/config.rasi, themed to match kitty
+    theme = rofiConfig;
 
     # Optional: specify a terminal for rofi -run (delete if you don't need this)
     # terminal = "alacritty";
   };
 
-  # If you want to expose the config directory directly instead of using `theme =`
-  # uncomment this block and REMOVE `theme = rofiConfig;`
-  #
-  # home.file.".config/rofi/config.rasi".source = rofiConfig;
+  home.file.".config/wal/templates/colors-rofi.rasi".source = rofiWalTemplate;
 }

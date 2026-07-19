@@ -1,0 +1,12 @@
+/* pywal template: rendered to ~/.cache/wal/colors-rofi.rasi on every
+ * `wal` run (see scripts/change_wallpaper.sh) and @imported by
+ * home/rofi/config.rasi. Keep the variable names in sync with that file.
+ */
+* {{
+	background: #{background.strip}B3;
+	foreground: {foreground};
+	accent:     {color2};
+	accent-dim: #{color2.strip}33;
+	urgent:     {color1};
+	urgent-dim: #{color1.strip}33;
+}}
