@@ -6,6 +6,8 @@
     inputs.home-manager.nixosModules.home-manager
   ];
 
+
+  nixpkgs.config.allowUnfree = true;
   # Bootloader (Legacy BIOS - Asus EEE PC 1015PEM predates UEFI)
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
@@ -49,8 +51,21 @@
   };
 
   environment.systemPackages = with pkgs; [
-    cmatrix
+    #dev
     gnumake
+
+    #editors
+    helix 
+
+    #misc
+    cmatrix
+    asciiquarium
+
+    #browser
+    firefox
+
+    #ai
+    claude-code
   ];
 
   # Skip building docs to save space/CPU on weak hardware
