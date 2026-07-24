@@ -15,6 +15,10 @@
   networking.hostName = "liliputh";
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # Lets deploys pushed via `nixos-rebuild --target-host` from maya add store
+  # paths without a cache.nixos.org signature (nix-copy-closure over plain
+  # ssh:// doesn't forward it).
+  nix.settings.trusted-users = [ "root" "mightypancake" ];
 
   networking.networkmanager.enable = true;
 
@@ -70,9 +74,7 @@
     firefox
 
     #ai
-    # claude-code: pulled temporarily - forces a local build that OOMs on
-    # this machine. Re-add once SSH is up so it can be built remotely and
-    # pushed via `--target-host` instead.
+    claude-code
   ];
 
   # Skip building docs to save space/CPU on weak hardware
