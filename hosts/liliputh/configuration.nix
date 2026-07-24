@@ -60,6 +60,8 @@
   home-manager = {
     extraSpecialArgs = { inherit inputs froot; };
     users."mightypancake" = import ./home.nix;
+    # Rename pre-existing unmanaged files instead of refusing to switch.
+    backupFileExtension = "backup";
   };
 
   environment.systemPackages = with pkgs; [
