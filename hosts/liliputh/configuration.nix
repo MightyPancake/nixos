@@ -51,6 +51,7 @@
   services.openssh.enable = true;
 
   environment.variables = {
+    GCM_CREDENTIAL_STORE = "cache";
     EDITOR = "hx";
   };
 
