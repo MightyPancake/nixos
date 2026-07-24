@@ -70,7 +70,9 @@
     firefox
 
     #ai
-    claude-code
+    # claude-code: pulled temporarily - forces a local build that OOMs on
+    # this machine. Re-add once SSH is up so it can be built remotely and
+    # pushed via `--target-host` instead.
   ];
 
   # Skip building docs to save space/CPU on weak hardware
