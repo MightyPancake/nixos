@@ -60,21 +60,45 @@
   };
 
   environment.systemPackages = with pkgs; [
-    #dev
+    #dev - langs
+    gcc
     gnumake
+    tinycc
+    lua
+    emscripten
+
+    #dev - tools
+    git
+    git-lfs
+    git-credential-manager
+    wasmtime
 
     #editors
     helix 
 
-    #misc
-    cmatrix
-    asciiquarium
-
     #browser
     firefox
 
-    #ai
-    claude-code
+    #yap
+    tree-sitter
+
+    #misc
+    cmatrix
+    asciiquarium
+    tree
+    superfile
+    tty-clock
+    cowsay
+    fortune
+    mpv
+    scummvm
+
+    # tools
+    zip
+    unzip
+    which
+    gnutar
+    vscode
   ];
 
   # Skip building docs to save space/CPU on weak hardware
