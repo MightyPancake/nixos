@@ -89,6 +89,7 @@
     tree-sitter
 
     #misc
+    fastfetch
     cmatrix
     asciiquarium
     tree
@@ -105,7 +106,11 @@
     which
     gnutar
     vscode
+    openssh
   ];
+
+  # DejaVu Sans Mono for xterm's Xft rendering (see home.nix xresources).
+  fonts.packages = with pkgs; [ dejavu_fonts ];
 
   # Skip building docs to save space/CPU on weak hardware
   documentation.enable = false;
