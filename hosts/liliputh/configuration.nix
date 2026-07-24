@@ -54,6 +54,9 @@
     EDITOR = "hx";
   };
 
+  # For correct terminal behaviour across ssh sessions
+  environment.enableAllTerminfo = true;
+
   home-manager = {
     extraSpecialArgs = { inherit inputs froot; };
     users."mightypancake" = import ./home.nix;
