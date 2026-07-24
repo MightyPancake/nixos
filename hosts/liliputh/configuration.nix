@@ -39,7 +39,12 @@
     isNormalUser = true;
     description = "Filip";
     extraGroups = [ "networkmanager" "wheel" ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFCB9pp8mc7rJnyTYoWDFL9elW6tF9jIZ3x+3ffPW2pL"
+    ];
   };
+
+  services.openssh.enable = true;
 
   environment.variables = {
     EDITOR = "hx";
