@@ -47,6 +47,7 @@
       maya-plasma = mkHost "maya" "plasma";
       maya-hyprland = mkHost "maya" "hyprland";
       gmk-hyprland = mkHost "gmk" "hyprland";
+      liliputh-i3 = mkHost "liliputh" "i3";
     };
   };
 }

@@ -237,6 +237,7 @@
     typst
     typstyle
     typst-live
+    emscripten
 
     # dev - tools
     kitty
