@@ -8,10 +8,14 @@
 
   # Base xterm look and feel. Xft rendering (Monaspace Neon NF) gives us Nerd
   # Font glyphs so starship prompt symbols display correctly even when SSH'd
-  # into remote hosts; see fonts.packages in configuration.nix.
+  # into remote hosts; see fonts.packages in configuration.nix. DejaVu Sans is
+  # listed second as an explicit fallback: Monaspace has zero coverage of the
+  # Braille Pattern block (U+2800-28FF, used for pixel-art-style ascii art),
+  # and without this xterm falls through to Unifont, which draws a visible
+  # marker for every dot position even when "off" instead of leaving it blank.
   xresources.properties = {
     "XTerm*termName" = "xterm-256color";
-    "XTerm*faceName" = "MonaspiceNe Nerd Font";
+    "XTerm*faceName" = "MonaspiceNe Nerd Font,DejaVu Sans";
     "XTerm*faceSize" = 12;
     "XTerm*geometry" = "100x30";
     "XTerm*saveLines" = 5000;

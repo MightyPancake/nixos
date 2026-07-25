@@ -109,14 +109,16 @@
     unzip
     which
     gnutar
-    vscode
     openssh
   ];
 
   # Monaspace Neon NF for xterm's Xft rendering (see home.nix xresources).
   # The NF variant is needed so Nerd Font glyphs (e.g. starship prompt symbols
   # on remote hosts via SSH) render correctly instead of dotted boxes.
-  fonts.packages = with pkgs; [ nerd-fonts.monaspace ];
+  # dejavu_fonts is the explicit fallback for glyphs Monaspace doesn't cover
+  # (e.g. Braille Pattern ascii art) - declared here rather than relying on
+  # it being pulled in transitively by something else.
+  fonts.packages = with pkgs; [ nerd-fonts.monaspace dejavu_fonts ];
 
   # Skip building docs to save space/CPU on weak hardware
   documentation.enable = false;
