@@ -11,7 +11,7 @@
   # into remote hosts; see fonts.packages in configuration.nix.
   xresources.properties = {
     "XTerm*termName" = "xterm-256color";
-    "XTerm*faceName" = "MonaspaceNeon Nerd Font";
+    "XTerm*faceName" = "MonaspiceNe Nerd Font";
     "XTerm*faceSize" = 12;
     "XTerm*geometry" = "100x30";
     "XTerm*saveLines" = 5000;
