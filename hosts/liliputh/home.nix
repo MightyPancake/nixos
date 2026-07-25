@@ -147,13 +147,13 @@ in
         "Mod4+Shift+0" = "move container to workspace number 10";
 
         # LAlt+WASD as arrow keys
-        "Mod1+w" = "exec xdotool key Up";
-        "Mod1+a" = "exec xdotool key Left";
-        "Mod1+s" = "exec xdotool key Down";
-        "Mod1+d" = "exec xdotool key Right";
+        "Mod1+w" = "exec ${pkgs.xdotool}/bin/xdotool key --clearmodifiers Up";
+        "Mod1+a" = "exec ${pkgs.xdotool}/bin/xdotool key --clearmodifiers Left";
+        "Mod1+s" = "exec ${pkgs.xdotool}/bin/xdotool key --clearmodifiers Down";
+        "Mod1+d" = "exec ${pkgs.xdotool}/bin/xdotool key --clearmodifiers Right";
 
         # LAlt+K play/pause, LAlt+I/M volume up/down
-        "Mod1+k" = "exec playerctl play-pause";
+        "Mod1+k" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "Mod1+i" = "exec --no-startup-id ${volumeUp}";
         "Mod1+m" = "exec --no-startup-id ${volumeDown}";
       };
