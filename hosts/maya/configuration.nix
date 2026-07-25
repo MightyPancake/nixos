@@ -105,6 +105,8 @@
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.powersave = false;
 
+  services.openssh.enable = true;
+
   # AX210 reliability: disable aggressive Wi-Fi power saving
   boot.extraModprobeConfig = ''
     options iwlwifi power_save=0
