@@ -6,12 +6,12 @@
 
   home.packages = [];
 
-  # Base xterm look and feel. Xft rendering (DejaVu Sans Mono) was requested
-  # explicitly, trading away the bitmap-font CPU savings this machine's weak
-  # CPU would otherwise prefer; see fonts.packages in configuration.nix.
+  # Base xterm look and feel. Xft rendering (Monaspace Neon NF) gives us Nerd
+  # Font glyphs so starship prompt symbols display correctly even when SSH'd
+  # into remote hosts; see fonts.packages in configuration.nix.
   xresources.properties = {
     "XTerm*termName" = "xterm-256color";
-    "XTerm*faceName" = "DejaVu Sans Mono";
+    "XTerm*faceName" = "MonaspaceNeon Nerd Font";
     "XTerm*faceSize" = 12;
     "XTerm*geometry" = "100x30";
     "XTerm*saveLines" = 5000;

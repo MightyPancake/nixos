@@ -113,8 +113,10 @@
     openssh
   ];
 
-  # DejaVu Sans Mono for xterm's Xft rendering (see home.nix xresources).
-  fonts.packages = with pkgs; [ dejavu_fonts ];
+  # Monaspace Neon NF for xterm's Xft rendering (see home.nix xresources).
+  # The NF variant is needed so Nerd Font glyphs (e.g. starship prompt symbols
+  # on remote hosts via SSH) render correctly instead of dotted boxes.
+  fonts.packages = with pkgs; [ nerd-fonts.monaspace ];
 
   # Skip building docs to save space/CPU on weak hardware
   documentation.enable = false;
