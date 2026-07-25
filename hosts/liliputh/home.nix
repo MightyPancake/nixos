@@ -1,10 +1,36 @@
 { config, pkgs, inputs, froot, ... }:
 
+let
+  volumeUp = pkgs.writeShellScript "volume-up" ''
+    amixer set Master 5%+ unmute
+    vol=$(amixer get Master | grep -Eo '[0-9]+%' | tail -1 | tr -d %)
+    notify-send -t 1500 -h string:x-dunst-stack-tag:volume -h int:value:"$vol" Volume "$vol%"
+  '';
+  volumeDown = pkgs.writeShellScript "volume-down" ''
+    amixer set Master 5%- unmute
+    vol=$(amixer get Master | grep -Eo '[0-9]+%' | tail -1 | tr -d %)
+    notify-send -t 1500 -h string:x-dunst-stack-tag:volume -h int:value:"$vol" Volume "$vol%"
+  '';
+in
 {
   home.username = "mightypancake";
   home.homeDirectory = "/home/mightypancake";
 
-  home.packages = [];
+  home.packages = with pkgs; [
+    xdotool
+    playerctl
+    alsa-utils
+    libnotify
+  ];
+
+  services.dunst = {
+    enable = true;
+    settings.global = {
+      timeout = 1500;
+      width = 250;
+      corner_radius = 5;
+    };
+  };
 
   # Base xterm look and feel. Xft rendering (Monaspace Neon NF) gives us Nerd
   # Font glyphs so starship prompt symbols display correctly even when SSH'd
@@ -119,6 +145,17 @@
         "Mod4+Shift+8" = "move container to workspace number 8";
         "Mod4+Shift+9" = "move container to workspace number 9";
         "Mod4+Shift+0" = "move container to workspace number 10";
+
+        # LAlt+WASD as arrow keys
+        "Mod1+w" = "exec xdotool key Up";
+        "Mod1+a" = "exec xdotool key Left";
+        "Mod1+s" = "exec xdotool key Down";
+        "Mod1+d" = "exec xdotool key Right";
+
+        # LAlt+K play/pause, LAlt+I/M volume up/down
+        "Mod1+k" = "exec playerctl play-pause";
+        "Mod1+i" = "exec --no-startup-id ${volumeUp}";
+        "Mod1+m" = "exec --no-startup-id ${volumeDown}";
       };
     };
   };

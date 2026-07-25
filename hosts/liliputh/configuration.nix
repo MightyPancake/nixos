@@ -130,5 +130,21 @@
     memoryPercent = 50;
   };
 
+  hardware.bluetooth = {
+    enable = true;
+    hsphfpd.enable = false;
+    settings = {
+      General = {
+        Enable = "Source,Sink,Media,Socket";
+        Experimental = true;
+      };
+      Policy = {
+        AutoEnable = false;
+        ReconnectAttempts = 0;
+        ReconnectUUIDs = "";
+      };
+    };
+  };
+
   system.stateVersion = "26.05";
 }
