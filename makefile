@@ -1,6 +1,6 @@
 # Default variables
-host ?= maya
-desktop ?= hyprland
+host ?= $(or $(MAKE_FLAKE_HOST),maya)
+desktop ?= $(or $(MAKE_FLAKE_DESKTOP),hyprland)
 flake_path ?= $(CURDIR)
 
 .PHONY: switch build test clean dirty

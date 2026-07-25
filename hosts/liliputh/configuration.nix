@@ -53,6 +53,8 @@
   environment.variables = {
     GCM_CREDENTIAL_STORE = "cache";
     EDITOR = "hx";
+    MAKE_FLAKE_HOST = "liliputh";
+    MAKE_FLAKE_DESKTOP = "i3";
   };
 
   # For correct terminal behaviour across ssh sessions

@@ -166,6 +166,8 @@
     EDITOR = "hx";
     GCM_CREDENTIAL_STORE = "cache";
     GTK_THEME = "Arc-Dark";
+    MAKE_FLAKE_HOST = "maya";
+    MAKE_FLAKE_DESKTOP = "hyprland";
   };
   qt = {
     enable = true;
