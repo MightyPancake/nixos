@@ -23,7 +23,7 @@
     "XTerm*metaSendsEscape" = true;
     "XTerm*selectToClipboard" = true;
     "XTerm*utf8" = 1;
-    "XTerm.VT100.translations" = "#override\\nShift<Key>Return: string(0x0A)";
+    "XTerm.VT100.translations" = "#override\\nCtrl Shift <Key>c: copy-selection(CLIPBOARD)\\nCtrl Shift <Key>v: insert-selection(CLIPBOARD)\\nShift<Key>Return: string(0x0A)";
 
     # ANSI 16-color palette (One Dark-inspired) so colored CLI output isn't
     # just xterm's dull default colors.

@@ -1,6 +1,6 @@
 # Default variables
-host ?= $(or $(MAKE_FLAKE_HOST),maya)
-desktop ?= $(or $(MAKE_FLAKE_DESKTOP),hyprland)
+host ?= $(or $(MAKE_FLAKE_HOST),$(shell hostname))
+desktop ?= $(or $(MAKE_FLAKE_DESKTOP),$(if $(filter liliputh,$(host)),i3,hyprland))
 flake_path ?= $(CURDIR)
 
 .PHONY: switch build test clean dirty
