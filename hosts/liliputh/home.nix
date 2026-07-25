@@ -22,6 +22,8 @@
     "XTerm*loginShell" = true;
     "XTerm*metaSendsEscape" = true;
     "XTerm*selectToClipboard" = true;
+    "XTerm*utf8" = 1;
+    "XTerm.VT100.translations" = "#override\\nShift<Key>Return: string(0x0A)";
 
     # ANSI 16-color palette (One Dark-inspired) so colored CLI output isn't
     # just xterm's dull default colors.
@@ -57,6 +59,9 @@
     enable = true;
     config = {
       modifier = "Mod4";
+      startup = [
+        { command = "feh --randomize --bg-fill ~/nixos/wallpapers"; notification = false; }
+      ];
       keybindings = {
         "Mod4+Return" = "exec xterm";
         "Mod4+q" = "kill";
@@ -84,7 +89,7 @@
         "Mod4+w" = "layout tabbed";
         "Mod4+e" = "layout toggle split";
         "Mod4+Shift+space" = "floating toggle";
-        "Mod4+r" = "mode resize";
+        "Mod4+r" = "exec --no-startup-id feh --randomize --bg-fill ~/nixos/wallpapers";
 
         "Mod4+minus" = "scratchpad show";
         "Mod4+Shift+minus" = "move scratchpad";

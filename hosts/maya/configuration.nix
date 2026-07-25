@@ -248,6 +248,9 @@
     git-credential-manager
     git
     git-lfs
+    lazygit
+    tmux
+    inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default
     wasmtime
     pkgsCross.wasi32.stdenv.cc
     llvmPackages.lld

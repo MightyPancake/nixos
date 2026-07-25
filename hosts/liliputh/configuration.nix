@@ -89,6 +89,7 @@
     tree-sitter
 
     #misc
+    feh
     fastfetch
     cmatrix
     asciiquarium
@@ -99,6 +100,7 @@
     fortune
     mpv
     scummvm
+    btop
 
     # tools
     zip

@@ -22,6 +22,10 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    herdr = {
+      url = "github:ogulcancelik/herdr";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, spicetify-nix, ... }@inputs:
