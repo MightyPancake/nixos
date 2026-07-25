@@ -101,6 +101,7 @@
     cowsay
     fortune
     mpv
+    yt-dlp-light
     scummvm
     btop
 
