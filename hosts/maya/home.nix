@@ -40,7 +40,8 @@ in {
     "display": {
       "key": {
         "type": "icon"
-      }
+      },
+      "brightColor": false
     },
     "logo": {
       "type": "file",
