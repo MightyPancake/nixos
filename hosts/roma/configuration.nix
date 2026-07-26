@@ -52,7 +52,11 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.default = 0;
-  boot.loader.systemd-boot.configurationLimit = 5;
+  # Bumped from 5 while iterating on the /home SD card setup - generation 6
+  # (skafbxk9758kqwhjhvlh078rwx7w6r9w) is the known-good pre-SD-card baseline
+  # and needs enough headroom to not get pruned out of the boot menu (and
+  # thus GC-eligible) while we keep experimenting.
+  boot.loader.systemd-boot.configurationLimit = 15;
 
   # Hostname
   networking.hostName = "roma";
@@ -68,6 +72,34 @@
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 14d";
+  };
+
+  # Root cause of the /home SD card's flaky boot-time detection: the
+  # card-detect switch itself has a marginal/worn mechanical contact.
+  # Confirmed NOT a missed-interrupt/software issue - a PCI driver
+  # unbind+rebind (which forces a fresh probe and GPIO re-read) had no
+  # effect, but physically wiggling the card during boot does fix it. The
+  # detect GPIO pin is apparently electrically stuck reading "no card" at
+  # rest and only reports correctly when physically disturbed. No software
+  # fix exists for this - don't re-attempt a rescan/rebind-based fix without
+  # new evidence, it's a dead end (tried and removed 2026-07-26).
+
+  # Fallback for the flaky card-detect above: mounts /home for real the
+  # moment the kernel actually sees the card, whenever that ends up being
+  # enough some boots: mounts /home for real the moment the kernel actually
+  # sees the card, whenever that ends up being. greetd keeps retrying login
+  # and self-heals once this lands.
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="block", ENV{ID_FS_UUID}=="02bfcad5-927d-42cf-a963-55272982adba", RUN+="${pkgs.systemd}/bin/systemctl start home.mount"
+  '';
+
+  # Give /home's mount attempt a chance to finish before greetd's first
+  # login try - systemd-logind hard-requires /home for the session scope, so
+  # without this greetd crash-loops (Hyprland dying every ~13s) for however
+  # long the card takes, instead of one quiet ordered wait.
+  systemd.services.greetd = {
+    after = [ "home.mount" ];
+    wants = [ "home.mount" ];
   };
 
   # Networking

@@ -25,12 +25,24 @@
     };
 
   # 128GB SD card in the external slot - holds /home so the small eMMC only
-  # needs to fit /nix/store. nofail + automount so a missing/removed card
-  # doesn't block boot, it just mounts on first access to /home.
+  # needs to fit /nix/store. This card is slow/flaky to enumerate - observed
+  # anywhere from a few seconds to several minutes after boot, sometimes with
+  # a failed init attempt first. nofail so local-fs.target/multi-user.target
+  # (ssh, networking, etc.) never wait on it. But note: nofail does NOT save
+  # the graphical login session - systemd-logind adds its own hard
+  # RequiresMountsFor=/home to every session scope, so greetd will keep
+  # failing to log in (crash-looping Hyprland) until /home is actually
+  # mounted, no matter what options are set here. See greetd's
+  # after/wants=home.mount in configuration.nix, which gives the mount a
+  # single, generous, ordered attempt before greetd's first try instead of
+  # many short racing ones. The udev rule in configuration.nix mounts it for
+  # real whenever the card actually shows up, as a fallback for whenever this
+  # timeout isn't enough - greetd will keep retrying and self-heal once that
+  # lands, just noisily.
   fileSystems."/home" =
     { device = "/dev/disk/by-uuid/02bfcad5-927d-42cf-a963-55272982adba";
       fsType = "ext4";
-      options = [ "nofail" "x-systemd.automount" "x-systemd.device-timeout=5s" ];
+      options = [ "nofail" "x-systemd.device-timeout=45s" ];
     };
 
   swapDevices = [ ];
