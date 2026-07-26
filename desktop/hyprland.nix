@@ -1,12 +1,21 @@
 { config, pkgs, inputs, froot, ... }:
 
+let
+  # Per-host keybind overrides (e.g. roma has no super key) live as separate
+  # entrypoints in home/, named home/hyprland-<host>.conf. Falls back to the
+  # default home/hyprland.conf otherwise.
+  hyprlandConfigFile =
+    {
+      roma = "/home/mightypancake/nixos/home/hyprland-roma.conf";
+    }.${config.networking.hostName} or "/home/mightypancake/nixos/home/hyprland.conf";
+in
 {
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
         # command = "${pkgs.hyprland}/bin/hyprland -c /home/mightypancake/nixos/home/hyprland.conf";
-        command = "start-hyprland -- -c /home/mightypancake/nixos/home/hyprland.conf";
+        command = "start-hyprland -- -c ${hyprlandConfigFile}";
         user = "mightypancake";
       };
     };
