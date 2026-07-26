@@ -63,6 +63,13 @@
   # Small eMMC disk - hardlink duplicate files across store paths to save space
   nix.settings.auto-optimise-store = true;
 
+  # Small eMMC disk - reap old generations automatically instead of filling up
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+
   # Networking
   networking.networkmanager.enable = true;
 

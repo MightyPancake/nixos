@@ -24,6 +24,15 @@
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
+  # 128GB SD card in the external slot - holds /home so the small eMMC only
+  # needs to fit /nix/store. nofail + automount so a missing/removed card
+  # doesn't block boot, it just mounts on first access to /home.
+  fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/02bfcad5-927d-42cf-a963-55272982adba";
+      fsType = "ext4";
+      options = [ "nofail" "x-systemd.automount" "x-systemd.device-timeout=5s" ];
+    };
+
   swapDevices = [ ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
