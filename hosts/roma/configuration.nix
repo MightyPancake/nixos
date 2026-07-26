@@ -60,6 +60,9 @@
   # Enable flakes and nix-command
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # Small eMMC disk - hardlink duplicate files across store paths to save space
+  nix.settings.auto-optimise-store = true;
+
   # Networking
   networking.networkmanager.enable = true;
 
@@ -144,7 +147,7 @@
 
   # Common applications
   programs.firefox.enable = true;
-  programs.ladybird.enable = true;
+  # programs.ladybird.enable = true; # heavy second browser engine, disabled to save space on eMMC
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -265,7 +268,7 @@
     bluetuith
     upower
     networkmanagerapplet
-    easyeffects #For microphone being shitty
+    # easyeffects #For microphone being shitty - heavy gstreamer closure, disabled to save space on eMMC
     brightnessctl
 
     # comms
@@ -301,7 +304,7 @@
     scummvm
 
     # Studies/studia
-    anki
+    # anki # heavy Qt closure, disabled to save space on eMMC
 
     # Stormbound Games (huge closure, uncomment only if doing Unity work here)
     # (pkgs.unityhub.override {
