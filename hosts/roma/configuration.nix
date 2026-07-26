@@ -179,8 +179,8 @@
   # System packages
   environment.systemPackages = with pkgs; [
     # dev - editors
-    lldb
-    clang-tools
+    # lldb
+    # clang-tools
     bear
 
     # dev - languages
@@ -191,9 +191,9 @@
     lua
     python312
     gawk
-    typst
-    typstyle
-    typst-live
+    #typst
+    #typstyle
+    #typst-live
     # emscripten # heavy toolchain, uncomment if hacking on the wasm backend here
 
     # dev - tools
@@ -208,7 +208,7 @@
     inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default
     wasmtime
     # pkgsCross.wasi32.stdenv.cc # heavy cross toolchain, uncomment if needed
-    llvmPackages.lld
+    #llvmPackages.lld
 
     # Frama-C + provers (heavy OCaml toolchain, uncomment if doing formal
     # methods work on this machine)
