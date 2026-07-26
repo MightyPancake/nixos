@@ -92,14 +92,15 @@ icon-gap = 0.20000000298023224
 label-size = 0.800000011920929
 
 [modules.hyprland-workspaces.app-icon-map]
-"title:*YouTube*" = "si-youtube"
-"*kitty*" = "tb-terminal-2-symbolic"
-"title:*Unity*" = "si-unity-symbolic"
 "*firefox*" = "si-firefoxbrowser"
+"*kitty*" = "tb-terminal-2-symbolic"
+"title:*YouTube*" = "si-youtube"
 "title:*Jenkins*" = "si-jenkins"
+"title:*Unity*" = "si-unity-symbolic"
 
 [modules.media]
 icon-type = "spinning-disc"
+format = "{{ title }}"
 label-max-length = 30
 button-bg-color = "transparent"
 
@@ -113,6 +114,50 @@ button-bg-color = "transparent"
 icon-bg-color = "blue"
 label-show = false
 
+[modules.systray]
+icon-scale = 1.0499999523162842
+item-gap = 0.5
+
+[[modules.systray.overrides]]
+name = "*unity*"
+icon = "si-unity-symbolic"
+color = "green"
+
+[[modules.systray.overrides]]
+name = "*spotify*"
+icon = "si-spotify-symbolic"
+color = "green"
+
+[[modules.systray.overrides]]
+name = "*chrome_status_icon_1*"
+icon = "si-discord-symbolic"
+color = "green"
+
+[[modules.systray.overrides]]
+name = "*chrome_status_icon_1*"
+icon = "si-discord-symbolic"
+color = "green"
+
+[[modules.systray.overrides]]
+name = "*Slack*"
+icon = "tb-brand-slack-symbolic"
+color = "green"
+
+[[modules.systray.overrides]]
+name = "*steam*"
+icon = "si-steam-symbolic"
+color = "green"
+
+[[modules.systray.overrides]]
+name = "*obs*"
+icon = "si-obsstudio-symbolic"
+color = "green"
+
+[[modules.systray.overrides]]
+name = "*easyeffects*"
+icon = "tb-adjustments-cog-symbolic"
+color = "green"
+
 [modules.volume]
 icon-show = false
 icon-bg-color = "accent"
@@ -120,6 +165,9 @@ label-color = "accent"
 button-bg-color = "transparent"
 scroll-up = "volume-step.sh up"
 scroll-down = "volume-step.sh down"
+
+[osd]
+monitor = "HDMI-A-1"
 
 [wallpaper]
 transition-type = "random"
