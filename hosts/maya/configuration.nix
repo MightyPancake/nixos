@@ -422,6 +422,8 @@
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
+  services.tailscale.enable = true;
+
   # Automatically detect USB disks
   services.udisks2.enable = true;
 
