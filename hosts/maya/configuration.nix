@@ -105,7 +105,15 @@
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.powersave = false;
 
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "prohibit-password";
+    };
+  };
+
+  services.fail2ban.enable = true;
 
   # AX210 reliability: disable aggressive Wi-Fi power saving
   boot.extraModprobeConfig = ''
@@ -159,6 +167,9 @@
     description = "Filip";
     extraGroups = [ "networkmanager" "wheel" ];
     # no DE-specific packages here
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFCB9pp8mc7rJnyTYoWDFL9elW6tF9jIZ3x+3ffPW2pL"
+    ];
   };
 
   # Environment variables
