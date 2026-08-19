@@ -233,7 +233,6 @@
 
     # comms
     discord
-    signal-desktop-bin
 
     # media
     spotify-player
