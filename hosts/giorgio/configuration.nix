@@ -257,6 +257,9 @@
     # (inputs.quickshell.packages.${pkgs.system}.default)
     xsettingsd
     hyprmon
+
+    # AI
+    claude-code
   ];
   virtualisation.docker.enable = true;
 
