@@ -213,9 +213,6 @@
     })
   ];
 
-  # Skip building docs for system packages (python doc build is broken upstream)
-  documentation.enable = false;
-
   # Nix LD - For proprietary stuff
   programs.nix-ld.enable = true;
 
@@ -247,7 +244,7 @@
     clang # C
     go
     lua
-    python312
+    python313
     gawk
     typst
     typstyle

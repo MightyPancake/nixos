@@ -177,7 +177,7 @@
     clang # C
     go
     lua
-    python312
+    python313
 
     # dev - tools
     kitty
