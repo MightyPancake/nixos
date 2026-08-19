@@ -199,6 +199,10 @@ in {
     '';
   };
 
+  # Persistent ssh-agent so the passphrase-protected key only needs
+  # unlocking once per login session, not on every ssh connection.
+  services.ssh-agent.enable = true;
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
