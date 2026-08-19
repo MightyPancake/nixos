@@ -67,13 +67,23 @@
   boot.loader.systemd-boot.configurationLimit = 5;
 
   # Hostname
-  networking.hostName = "gmk";
+  networking.hostName = "giorgio";
 
   # Enable flakes and nix-command
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Networking
   networking.networkmanager.enable = true;
+
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "prohibit-password";
+    };
+  };
+
+  services.fail2ban.enable = true;
 
   # Time zone and locales
   time.timeZone = "Europe/Warsaw";
@@ -117,6 +127,9 @@
     description = "Filip";
     extraGroups = [ "networkmanager" "wheel" ];
     # no DE-specific packages here
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFCB9pp8mc7rJnyTYoWDFL9elW6tF9jIZ3x+3ffPW2pL"
+    ];
   };
 
   # Environment variables

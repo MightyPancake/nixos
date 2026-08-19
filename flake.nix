@@ -50,7 +50,7 @@
       juliette-hyprland = mkHost "juliette" "hyprland";
       maya-plasma = mkHost "maya" "plasma";
       maya-hyprland = mkHost "maya" "hyprland";
-      gmk-hyprland = mkHost "gmk" "hyprland";
+      giorgio-hyprland = mkHost "giorgio" "hyprland";
       roma-hyprland = mkHost "roma" "hyprland";
       liliputh-i3 = mkHost "liliputh" "i3";
     };
