@@ -130,6 +130,7 @@
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFCB9pp8mc7rJnyTYoWDFL9elW6tF9jIZ3x+3ffPW2pL" # maya
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP1uwt372zMP7MQLFGP1s5tY9GyAz/cR4NK1V/3eBN7w" # phone / Termius
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJn70KfMISa4UcJW1jlamKzsZhSQ9S5pUkcxgCRP4pAt" # liliputh
     ];
   };
 
