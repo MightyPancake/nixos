@@ -1,6 +1,9 @@
 :root {
     --bg: #2a2a2a58;
     --topbar-bg: rgba(0, 0, 0, 0.10);
+    /* Web content background floor: raise the alpha (last pair, e.g. #4a4a4ae0) for more
+       readability/less see-through, lower it (e.g. #4a4a4a55) for more transparency. */
+    --content-bg: #4a4a4a88;
     --toolbar-bgcolor: var(--topbar-bg) !important;
     --toolbar-non-lwt-bgcolor: var(--topbar-bg) !important;
     --lwt-accent-color: var(--topbar-bg) !important;
@@ -57,15 +60,22 @@ hbox#urlbar[open="true"] hbox#urlbar-background {
     background-color: transparent !important;
 }
 
+/* Web content canvas: only the innermost layer (browser) gets the translucent
+   fallback. The wrapper elements above it must stay fully transparent —
+   stacking the same alpha on every ancestor compounds and looks opaque. */
 #appcontent,
 #tabbrowser-tabbox,
 #tabbrowser-tabpanels,
 tabpanels,
 .browserContainer,
-.browserStack,
-browser {
+.browserStack {
     background: transparent !important;
     background-color: transparent !important;
+}
+
+browser {
+    background: var(--content-bg) !important;
+    background-color: var(--content-bg) !important;
 }
 
 #main-window,

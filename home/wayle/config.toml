@@ -167,7 +167,7 @@ scroll-up = "volume-step.sh up"
 scroll-down = "volume-step.sh down"
 
 [osd]
-monitor = "HDMI-A-1"
+monitor = "primary"
 
 [wallpaper]
 transition-type = "random"
