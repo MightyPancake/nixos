@@ -1,5 +1,36 @@
   { config, pkgs, inputs, froot, ... }:
 
+let
+  androidComposition = pkgs.androidenv.composeAndroidPackages {
+    platformVersions = [ "34" ];
+    buildToolsVersions = [ "34.0.0" ];
+    includeNDK = true;
+    ndkVersions = [ "23.1.7779620" ];
+    includeEmulator = true;
+    includeSystemImages = true;
+    systemImageTypes = [ "google_apis_playstore" ];
+    abiVersions = [ "x86_64" ];
+  };
+
+  # Android Studio/Unity expect cmdline-tools/latest to exist; nixpkgs only
+  # provides the version-numbered directory, so add a `latest` alias.
+  androidSdkForUnity = pkgs.runCommand "android-sdk-unity" { } ''
+    mkdir -p $out
+    for entry in ${androidComposition.androidsdk}/libexec/android-sdk/*; do
+      name=$(basename "$entry")
+      if [ "$name" = "cmdline-tools" ]; then
+        mkdir -p "$out/cmdline-tools"
+        for v in "$entry"/*; do
+          ln -s "$v" "$out/cmdline-tools/$(basename "$v")"
+        done
+        ln -s "$(basename "$(ls "$entry" | head -n1)")" "$out/cmdline-tools/latest"
+      else
+        ln -s "$entry" "$out/$name"
+      fi
+    done
+  '';
+in
+
 {
   imports = [
     ./hardware-configuration.nix
@@ -165,7 +196,7 @@
   users.users.mightypancake = {
     isNormalUser = true;
     description = "Filip";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "kvm" ];
     # no DE-specific packages here
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFCB9pp8mc7rJnyTYoWDFL9elW6tF9jIZ3x+3ffPW2pL" # maya (self)
@@ -181,6 +212,13 @@
     GTK_THEME = "Arc-Dark";
     MAKE_FLAKE_HOST = "maya";
     MAKE_FLAKE_DESKTOP = "hyprland";
+    ANDROID_SDK_ROOT = "${androidSdkForUnity}";
+    ANDROID_HOME = "${androidSdkForUnity}";
+    # Unity's Android SDK manager invocations use Unity's own bundled JDK
+    # (11.x) regardless of the configured JDK, but newer cmdline-tools'
+    # sdkmanager hard-requires JDK 17+ just to run `--list`. This is the
+    # tool's own documented bypass for that gate.
+    SKIP_JDK_VERSION_CHECK = "1";
   };
   qt = {
     enable = true;
@@ -394,12 +432,7 @@
     mongosh
     mongodb-tools #For mongodump
     redisinsight
-    (androidenv.composeAndroidPackages {
-      platformVersions = [ "34" ];
-      buildToolsVersions = [ "34.0.0" ];
-      includeNDK = true;
-      ndkVersions = [ "23.1.7779620" ];
-    }).androidsdk
+    androidComposition.androidsdk
     # Nvidia
     mesa-demos
     vulkan-tools
