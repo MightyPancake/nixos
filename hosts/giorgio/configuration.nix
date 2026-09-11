@@ -309,6 +309,64 @@
   # PATH, which does not include systemPackages by default.
   systemd.services.containerd.path = [ pkgs.kata-runtime ];
 
+  # web-yap-runner runs inside a long-lived Kata microVM. Untrusted yap programs
+  # are then isolated twice: bwrap inside the guest (per request), and the VM
+  # boundary itself (from this host). The container image is almost empty on
+  # purpose — everything real comes from the read-only /nix bind, exactly like
+  # the bwrap-only deployment did, so yap does not need to be packaged for Nix.
+  systemd.services.yap-runner-vm =
+    let
+      runnerDir = "/home/mightypancake/web-yap-runner";
+      yapHome = "/home/mightypancake/yap";
+      # Compiled yap binaries dlopen their modules by absolute path baked in at
+      # compile time, so YAP_HOME must sit at the *same* path inside the guest.
+      guestPath = pkgs.lib.makeBinPath [
+        pkgs.nodejs_24
+        pkgs.bubblewrap
+        pkgs.gcc
+        pkgs.binutils
+        pkgs.coreutils
+        pkgs.bash
+        pkgs.findutils
+        pkgs.gnumake
+      ];
+      start = pkgs.writeShellScript "yap-runner-vm-start" ''
+        set -eu
+        nerdctl rm -f yap-runner-vm 2>/dev/null || true
+        nerdctl pull --quiet docker.io/library/alpine:latest
+        exec nerdctl run --rm --name yap-runner-vm \
+          --runtime io.containerd.kata.v2 \
+          --cni-path ${pkgs.cni-plugins}/bin \
+          -p 127.0.0.1:25116:25116 \
+          -v /nix:/nix:ro \
+          -v ${yapHome}:${yapHome}:ro \
+          -v ${runnerDir}:${runnerDir}:ro \
+          -w ${runnerDir} \
+          -e PATH=${guestPath}:/usr/bin:/bin \
+          -e YAP_HOME=${yapHome} \
+          -e YAP_BIN=${runnerDir}/yap_compiler \
+          -e YAP_SANDBOX_PROC=bind \
+          -e PORT=25116 \
+          -e HOST=0.0.0.0 \
+          docker.io/library/alpine:latest \
+          ${pkgs.nodejs_24}/bin/node src/server.js
+      '';
+    in
+    {
+      description = "web-yap-runner inside a Kata microVM (yap.nullptr.free)";
+      after = [ "containerd.service" "network-online.target" ];
+      wants = [ "network-online.target" ];
+      requires = [ "containerd.service" ];
+      wantedBy = [ "multi-user.target" ];
+      path = [ pkgs.nerdctl pkgs.kata-runtime pkgs.cni-plugins pkgs.iptables ];
+      serviceConfig = {
+        ExecStart = start;
+        ExecStop = "${pkgs.nerdctl}/bin/nerdctl rm -f yap-runner-vm";
+        Restart = "on-failure";
+        RestartSec = 5;
+      };
+    };
+
   services.flatpak.enable = true;
   # Automatically detect USB disks
   services.udisks2.enable = true;
