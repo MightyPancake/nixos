@@ -125,7 +125,7 @@
   users.users.mightypancake = {
     isNormalUser = true;
     description = "Filip";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "kvm" "docker" ];
     # no DE-specific packages here
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFCB9pp8mc7rJnyTYoWDFL9elW6tF9jIZ3x+3ffPW2pL" # maya
@@ -263,6 +263,34 @@
     claude-code
   ];
   virtualisation.docker.enable = true;
+
+  # Kata Containers on cloud-hypervisor: a container runtime that boots each
+  # container inside its own microVM. web-yap-runner (yap.nullptr.free) compiles
+  # and executes untrusted user-submitted programs, so it runs them under this
+  # instead of only a namespace sandbox — an escape then lands in a throwaway
+  # guest kernel rather than on this host.
+  #
+  # nixpkgs' kata-runtime already bakes valid store paths for the guest kernel
+  # and rootfs (kata-images) and for virtiofsd into configuration-clh.toml, but
+  # its hypervisor paths point at a cloud-hypervisor binary that package does
+  # not actually ship, so those get substituted for the real one here.
+  environment.etc."kata-containers/configuration.toml".source =
+    pkgs.runCommand "kata-configuration-clh.toml" { } ''
+      substitute \
+        ${pkgs.kata-runtime}/share/defaults/kata-containers/configuration-clh.toml \
+        "$out" \
+        --replace-fail \
+          "${pkgs.kata-runtime}/bin/cloud-hypervisor" \
+          "${pkgs.cloud-hypervisor}/bin/cloud-hypervisor"
+    '';
+
+  virtualisation.docker.daemon.settings = {
+    runtimes.kata.runtimeType = "io.containerd.kata.v2";
+  };
+
+  # containerd resolves the shim binary (containerd-shim-kata-v2) off the
+  # daemon's own PATH, which does not include systemPackages by default.
+  systemd.services.docker.path = [ pkgs.kata-runtime ];
 
   services.flatpak.enable = true;
   # Automatically detect USB disks
