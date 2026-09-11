@@ -125,7 +125,7 @@
   users.users.mightypancake = {
     isNormalUser = true;
     description = "Filip";
-    extraGroups = [ "networkmanager" "wheel" "kvm" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "kvm" "docker" "containerd" ];
     # no DE-specific packages here
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFCB9pp8mc7rJnyTYoWDFL9elW6tF9jIZ3x+3ffPW2pL" # maya
@@ -261,6 +261,11 @@
 
     # AI
     claude-code
+
+    # Drives Kata Containers (see the kata block below); ctr comes from
+    # containerd and is the low-level fallback if nerdctl misbehaves.
+    nerdctl
+    containerd
   ];
   virtualisation.docker.enable = true;
 
@@ -284,13 +289,25 @@
           "${pkgs.cloud-hypervisor}/bin/cloud-hypervisor"
     '';
 
-  virtualisation.docker.daemon.settings = {
-    runtimes.kata.runtimeType = "io.containerd.kata.v2";
+  # Kata is driven through containerd, not Docker. Docker's generated OCI spec
+  # is rejected by the kata-agent inside the guest ("invalid namespace type"),
+  # and no combination of --cgroupns/--ipc/--pid/--network avoids it; containerd
+  # is Kata's actually-supported path. The microVM itself boots fine either way.
+  virtualisation.containerd = {
+    enable = true;
+    settings = {
+      # Hand the control socket to a group so the yap-runner user service can
+      # start containers without being root. The gid is pinned because
+      # containerd wants a number here, so it cannot be read back from a
+      # dynamically allocated group.
+      grpc.gid = 942;
+    };
   };
+  users.groups.containerd.gid = 942;
 
-  # containerd resolves the shim binary (containerd-shim-kata-v2) off the
-  # daemon's own PATH, which does not include systemPackages by default.
-  systemd.services.docker.path = [ pkgs.kata-runtime ];
+  # containerd resolves the shim binary (containerd-shim-kata-v2) off its own
+  # PATH, which does not include systemPackages by default.
+  systemd.services.containerd.path = [ pkgs.kata-runtime ];
 
   services.flatpak.enable = true;
   # Automatically detect USB disks
