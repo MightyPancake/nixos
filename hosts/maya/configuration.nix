@@ -178,6 +178,27 @@ in
   services.power-profiles-daemon.enable = true;
   # Printing
   services.printing.enable = true;
+  # HP Deskjet 2540 (USB) needs the HPLIP driver/PPDs
+  services.printing.drivers = [ pkgs.hplip ];
+
+  # Declarative print queue so it survives a clean reinstall.
+  # Best quality is required on this unit (Normal causes horizontal banding).
+  hardware.printers.ensureDefaultPrinter = "Deskjet2540";
+  hardware.printers.ensurePrinters = [{
+    name = "Deskjet2540";
+    description = "HP Deskjet 2540";
+    deviceUri = "hp:/usb/Deskjet_2540_series?serial=CN4CO5778F05XK";
+    model = "drv:///hp/hpcups.drv/hp-deskjet_2540_series.ppd";
+    ppdOptions = {
+      PageSize = "A4";
+      OutputMode = "Best";
+      MediaType = "Plain";
+    };
+  }];
+
+  # Scanning (HP Deskjet 2540 flatbed via SANE/hpaio)
+  hardware.sane.enable = true;
+  hardware.sane.extraBackends = [ pkgs.hplip ];
 
   # Sound (PipeWire)
   services.pulseaudio.enable = false;
@@ -196,7 +217,7 @@ in
   users.users.mightypancake = {
     isNormalUser = true;
     description = "Filip";
-    extraGroups = [ "networkmanager" "wheel" "kvm" ];
+    extraGroups = [ "networkmanager" "wheel" "kvm" "scanner" "lp" ];
     # no DE-specific packages here
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFCB9pp8mc7rJnyTYoWDFL9elW6tF9jIZ3x+3ffPW2pL" # maya (self)
@@ -355,6 +376,7 @@ in
     # games
     solitaire-tui
     mangohud
+    prismlauncher # minecraft (run with nvidia-offload for the dGPU)
     protonup-qt
 
     # components
