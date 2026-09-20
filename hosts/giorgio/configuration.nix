@@ -351,6 +351,31 @@
           docker.io/library/alpine:latest \
           ${pkgs.nodejs_24}/bin/node src/server.js
       '';
+      # The runner needs no outbound network whatsoever: the toolchain comes
+      # from the read-only /nix bind, node deps are vendored in the checkout,
+      # and untrusted yap code already runs under bwrap --unshare-all. So we
+      # sever the guest's internet: drop everything it tries to *initiate* on
+      # the nerdctl bridge. Replies to the inbound published 127.0.0.1:25116
+      # connection are ctstate ESTABLISHED and keep flowing, so the Cloudflare
+      # Tunnel is unaffected — unlike --network none, which would also kill the
+      # published port. Fail-closed: if the bridge never appears we let
+      # ExecStartPost fail so systemd tears the container back down rather than
+      # leave it running with egress open.
+      netBlock = pkgs.writeShellScript "yap-runner-vm-netblock" ''
+        set -eu
+        ipt=${pkgs.iptables}/bin/iptables
+        # nerdctl sets up CNI networking asynchronously after `nerdctl run`
+        # forks, so nerdctl0 may not exist yet the instant ExecStartPost fires.
+        for _ in $(seq 1 60); do
+          [ -d /sys/class/net/nerdctl0 ] && break
+          sleep 0.5
+        done
+        $ipt -w -C FORWARD -i nerdctl0 -m conntrack --ctstate NEW -j DROP 2>/dev/null \
+          || $ipt -w -I FORWARD -i nerdctl0 -m conntrack --ctstate NEW -j DROP
+      '';
+      netUnblock = pkgs.writeShellScript "yap-runner-vm-netunblock" ''
+        ${pkgs.iptables}/bin/iptables -w -D FORWARD -i nerdctl0 -m conntrack --ctstate NEW -j DROP 2>/dev/null || true
+      '';
     in
     {
       description = "web-yap-runner inside a Kata microVM (yap.nullptr.free)";
@@ -361,7 +386,9 @@
       path = [ pkgs.nerdctl pkgs.kata-runtime pkgs.cni-plugins pkgs.iptables ];
       serviceConfig = {
         ExecStart = start;
+        ExecStartPost = netBlock;
         ExecStop = "${pkgs.nerdctl}/bin/nerdctl rm -f yap-runner-vm";
+        ExecStopPost = netUnblock;
         Restart = "on-failure";
         RestartSec = 5;
       };
