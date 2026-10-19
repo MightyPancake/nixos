@@ -319,6 +319,7 @@ in
     git-credential-manager
     git
     git-lfs
+    gh
     lazygit
     tmux
     inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default
