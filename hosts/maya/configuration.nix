@@ -414,6 +414,7 @@ in
     # ashell
     wayle
     hyprlock
+    tigervnc
     xsettingsd
     hyprmon
     pywalfox-native
