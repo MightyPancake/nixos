@@ -58,6 +58,12 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+
+    # Wayle bar look, synced from maya. GUI tweaks still go to runtime.toml.
+    ".config/wayle/config.toml" = {
+      source = "${froot}/home/wayle/config.toml";
+      force = true;
+    };
   };
 
   # Home Manager can also manage your environment variables through

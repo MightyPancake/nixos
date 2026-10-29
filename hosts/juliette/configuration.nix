@@ -174,14 +174,10 @@
   # System packages
   environment.systemPackages = with pkgs; [
     # dev - editors
-    vim
     # helix
     # helix-gpt
     # hx-lsp
     # libclang # DONT USE THIS
-    lldb
-    clang-tools
-    bear
     # glibc
     # glibc.dev
     
@@ -191,9 +187,6 @@
     go
     lua
     python312
-    android-studio
-    android-tools
-
     # dev - tools
     kitty
     gnumake
@@ -202,20 +195,7 @@
     git
     git-lfs
 
-    # Frama-C + provers
-    framac
-    alt-ergo
-    cvc5
-    z3
-    why3
-
-    # yap
-    tree-sitter
-    nodejs_24
-    valgrind
-
     # files
-    onedrive
     kdePackages.dolphin
 
     # misc
@@ -249,14 +229,10 @@
     upower
 
     # comms
-    discord
-    signal-desktop-bin
 
     # media
-    spotify-player
     # spotifyd
     spotify
-    youtube-tui
     mpv
     imv
     cava
@@ -264,8 +240,10 @@
 
     # fonts
     nerd-fonts.monaspace
+    monaspace
 
     # Useful in my hyprland set up
+    matugen
     wtype
     hyprpaper
     # ashell
@@ -277,22 +255,8 @@
 
     mesa
 
-    # Studies
-    # cassandra
-    # (python312.withPackages (ps: [ ps.cassandra-driver ]))
-    anki
-
-    # Stormbound Games
-    unityhub
-    flatpak
-    # vscodium
-    # vscode
     vscode-fhs
-    dotnet-sdk
     mono
-    slack
-    slack-term
-    # firebase-tools
     docker
     docker-client
 

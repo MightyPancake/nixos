@@ -59,6 +59,7 @@ blue = "#74c7ec"
 
 [modules.battery]
 button-bg-color = "transparent"
+right-click = "dropdown:brightness"
 
 [modules.bluetooth]
 border-color = "yellow"
@@ -92,11 +93,11 @@ icon-gap = 0.20000000298023224
 label-size = 0.800000011920929
 
 [modules.hyprland-workspaces.app-icon-map]
-"*firefox*" = "si-firefoxbrowser"
-"*kitty*" = "tb-terminal-2-symbolic"
 "title:*YouTube*" = "si-youtube"
-"title:*Jenkins*" = "si-jenkins"
+"*kitty*" = "tb-terminal-2-symbolic"
+"*firefox*" = "si-firefoxbrowser"
 "title:*Unity*" = "si-unity-symbolic"
+"title:*Jenkins*" = "si-jenkins"
 
 [modules.media]
 icon-type = "spinning-disc"
@@ -156,6 +157,11 @@ color = "green"
 [[modules.systray.overrides]]
 name = "*easyeffects*"
 icon = "tb-adjustments-cog-symbolic"
+color = "green"
+
+[[modules.systray.overrides]]
+name = "ROG Control Center"
+icon = "si-republicofgamers-symbolic"
 color = "green"
 
 [modules.volume]
