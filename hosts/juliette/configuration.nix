@@ -266,6 +266,7 @@
     wayle
     hyprlock
     wayvnc
+    tigervnc
     # (inputs.quickshell.packages.${pkgs.system}.default)
     xsettingsd
     hyprmon
