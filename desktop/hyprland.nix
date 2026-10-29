@@ -7,6 +7,7 @@ let
   hyprlandConfigFile =
     {
       roma = "/home/mightypancake/nixos/home/hyprland-roma.conf";
+      juliette = "/home/mightypancake/nixos/home/hyprland-juliette.conf";
     }.${config.networking.hostName} or "/home/mightypancake/nixos/home/hyprland.conf";
 in
 {

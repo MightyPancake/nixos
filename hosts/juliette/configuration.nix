@@ -101,6 +101,18 @@
   # Networking
   networking.networkmanager.enable = true;
 
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "prohibit-password";
+    };
+  };
+
+  # Remote desktop: wayvnc is started by home/hyprland-juliette.conf and is
+  # only reachable over Tailscale. No VNC auth - hyprlock is the gate.
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 5900 ];
+
   # Time zone and locales
   time.timeZone = "Europe/Warsaw";
 
@@ -143,6 +155,11 @@
     description = "Filip";
     extraGroups = [ "networkmanager" "wheel" "adbusers" "kvm" ];
     # no DE-specific packages here
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFCB9pp8mc7rJnyTYoWDFL9elW6tF9jIZ3x+3ffPW2pL" # maya
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP1uwt372zMP7MQLFGP1s5tY9GyAz/cR4NK1V/3eBN7w" # phone / Termius
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJn70KfMISa4UcJW1jlamKzsZhSQ9S5pUkcxgCRP4pAt" # liliputh
+    ];
   };
 
   # Environment variables
@@ -248,6 +265,7 @@
     # ashell
     wayle
     hyprlock
+    wayvnc
     # (inputs.quickshell.packages.${pkgs.system}.default)
     xsettingsd
     hyprmon
