@@ -262,10 +262,13 @@
     matugen
     wtype
     hyprpaper
+    awww
     # ashell
     wayle
     hyprlock
     wayvnc
+    pywalfox-native
+    pywal # needed by change_wallpaper.sh for color generation
     # (inputs.quickshell.packages.${pkgs.system}.default)
     xsettingsd
     hyprmon
