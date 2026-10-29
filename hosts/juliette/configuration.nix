@@ -270,6 +270,9 @@
   virtualisation.docker.enable = true;
 
   services.flatpak.enable = true;
+
+  services.tailscale.enable = true;
+
   # Automatically detect USB disks
   services.udisks2.enable = true;
 
