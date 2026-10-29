@@ -186,7 +186,6 @@
     clang # C
     go
     lua
-    python312
     # dev - tools
     kitty
     gnumake
