@@ -259,6 +259,33 @@ in
 
   # Common applications
   programs.firefox.enable = true;
+
+  programs.obs-studio = {
+    enable = true;
+    plugins = [
+      # NDI output. NDI serves its SDK from an unversioned URL, so the hash pinned
+      # in nixpkgs breaks whenever they release. Drop this override once nixpkgs
+      # is updated to ndi-6 >= 6.3.2.0.
+      (pkgs.obs-studio-plugins.distroav.override {
+        ndi-6 = pkgs.ndi-6.overrideAttrs (_: {
+          version = "6.3.2.0";
+          src = pkgs.fetchurl {
+            url = "https://downloads.ndi.tv/SDK/NDI_SDK_Linux/Install_NDI_SDK_v6_Linux.tar.gz";
+            hash = "sha256-8DFPJFRG3vxIi2POtGiazxqWWu79ray3BXG7IWqMwYM=";
+          };
+        });
+      })
+    ];
+  };
+
+  # NDI discovery (mDNS), sender connections and reliable UDP video
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+  networking.firewall.allowedTCPPortRanges = [ { from = 5960; to = 5990; } ];
+  networking.firewall.allowedUDPPortRanges = [ { from = 5960; to = 5990; } ];
   programs.ladybird.enable = true;
   # programs.chromium.enable = true;
 
@@ -360,7 +387,6 @@ in
     appimage-run
     playerctl
     ffmpeg_7
-    obs-studio
     jq
     fzf
     fd

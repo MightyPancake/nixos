@@ -162,6 +162,7 @@ in {
   home.sessionPath = [
     "$HOME/yap"
     "$HOME/nixos/scripts"
+    "$HOME/goose/build"
   ];
 
  
