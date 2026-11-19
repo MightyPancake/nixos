@@ -371,6 +371,7 @@ in
     kdePackages.dolphin
 
     # misc
+    blender
     tty-clock
     tree
     cbonsai
