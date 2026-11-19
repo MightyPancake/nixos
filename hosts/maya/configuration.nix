@@ -415,7 +415,11 @@ in
     brightnessctl
 
     # comms
-    discord-ptb
+    # from the separate nixpkgs-discord pin (see flake.nix)
+    (import inputs.nixpkgs-discord {
+      inherit (pkgs.stdenv.hostPlatform) system;
+      config.allowUnfree = true;
+    }).discord-ptb
     # vesktop #Modded discord basically
     
     signal-desktop
